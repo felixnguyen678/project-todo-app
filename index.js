@@ -13,7 +13,7 @@ server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
 });
 
-mongoose.connect('mongodb://localhost:27017/toDoList?serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&3t.uriVersion=3', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://root:12345ABC@cluster0.az6sc.mongodb.net/test\n', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

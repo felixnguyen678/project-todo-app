@@ -26,8 +26,8 @@ function handleAuthResponse(response, isSuccessful = false) {
     response.end(JSON.stringify(data));
 }
 
-function findTask(id) {
-    return Task.find({ owner: id })
+function findTask() {
+    return Task.find({})
 }
 
 function insertTask(task) {

@@ -4,8 +4,8 @@ const { handleError } = require('../helpers')
 
 
 function getTasks(request, response) {
-    const userId = request.body
-    findTask(userId)
+
+    findTask()
         .then(data => {
             response.end(JSON.stringify(data))
         })
