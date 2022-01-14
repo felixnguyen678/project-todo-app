@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { insertUser, verifyUser, handleAuthResponse } = require('./helpers')
+const { insertUser, verifyUser, handleResponse} = require('./helpers')
 const { handleError } = require('../helpers')
 
 function signUp(request, response) {
@@ -7,11 +7,11 @@ function signUp(request, response) {
     insertUser(user)
         .then((insertedUser) => {
             console.log('Log: signUp -> insertedUser', insertedUser)
-            handleAuthResponse(response, true)
+            handleResponse(response, true)
         })
         .catch(err => {
             handleError(err, 'controllers/index.js', 'signUp')
-            handleAuthResponse(response, false)
+            handleResponse(response, false)
         })
 }
 
