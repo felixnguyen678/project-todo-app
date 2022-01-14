@@ -12,6 +12,7 @@ const routes = {
     '/delete-task': { 'POST': { controller: deleteTask, middlewares: [parseRequestBody] } },
     '/get-tasks': { 'POST': { controller: getTasks, middlewares: [parseRequestBody] } },
     '/get-task': { 'POST': { controller: getTaskById, middlewares: [parseRequestBody] } },
+    '/image': {'GET': {controller: getImage, middlewares: [] } },
     '/ping-with-auth': {
         'GET': {
             controller: pingWithAuth,
