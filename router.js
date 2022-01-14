@@ -1,5 +1,5 @@
 const url = require('url')
-const { handleNotFound, getTasks, addTask, editTask, deleteTask, signUp, signIn, pingWithAuth, getTaskById} = require('./controllers')
+const { handleNotFound, getTasks, addTask, editTask, deleteTask, signUp, signIn, pingWithAuth, getTaskById, getImage} = require('./controllers')
 const { authenticate } = require('./middlewares')
 const { handleError } = require('./helpers')
 const parseRequestBody = require("./middlewares/parse-request-body");
