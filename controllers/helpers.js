@@ -18,7 +18,7 @@ function verifyUser(checkingUser) {
     return User.findOne(signingInUser)
 }
 
-function handleAuthResponse(response, isSuccessful = false) {
+function handleResponse(response, isSuccessful = false) {
     const data = {
         status: isSuccessful ? 'success' : 'fail'
     }
@@ -26,8 +26,8 @@ function handleAuthResponse(response, isSuccessful = false) {
     response.end(JSON.stringify(data));
 }
 
-function findTask() {
-    return Task.find({})
+function findTask(task) {
+    return Task.find(task)
 }
 
 function insertTask(task) {
@@ -40,7 +40,7 @@ function insertTask(task) {
 }
 
 function updateTask(task) {
-    return Task.findByIdAndUpdate(task.id, { taskName: task.taskName })
+    return Task.findByIdAndUpdate(task.id, {...task})
 }
 
 function removeTask(task) {
@@ -53,4 +53,4 @@ function hashPassword(password) {
     return hash.update(password).digest('hex')
 }
 
-module.exports = { insertUser, verifyUser, handleAuthResponse, findTask, insertTask, updateTask, removeTask }
+module.exports = { insertUser, verifyUser, handleResponse, findTask, insertTask, updateTask, removeTask }

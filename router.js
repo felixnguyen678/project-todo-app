@@ -1,5 +1,5 @@
 const url = require('url')
-const { handleNotFound, getTasks, addTask, editTask, deleteTask, signUp, signIn, pingWithAuth } = require('./controllers')
+const { handleNotFound, getTasks, addTask, editTask, deleteTask, signUp, signIn, pingWithAuth, getTaskById} = require('./controllers')
 const { authenticate } = require('./middlewares')
 const { handleError } = require('./helpers')
 const parseRequestBody = require("./middlewares/parse-request-body");
@@ -10,7 +10,8 @@ const routes = {
     '/add-task': { 'POST': { controller: addTask, middlewares: [parseRequestBody] } },
     '/update-task': { 'POST': { controller: editTask, middlewares: [parseRequestBody] } },
     '/delete-task': { 'POST': { controller: deleteTask, middlewares: [parseRequestBody] } },
-    '/get-task': { 'POST': { controller: getTasks }, middlewares: [parseRequestBody] },
+    '/get-tasks': { 'POST': { controller: getTasks, middlewares: [parseRequestBody] } },
+    '/get-task': { 'POST': { controller: getTaskById, middlewares: [parseRequestBody] } },
     '/ping-with-auth': {
         'GET': {
             controller: pingWithAuth,
@@ -43,7 +44,7 @@ function route(req) {
             }
         }
 
-        return currentRouteData.controller
+        return currentRouteData.controller;
     }
 
     return handleNotFound

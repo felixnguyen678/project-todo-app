@@ -1,19 +1,45 @@
 const jwt = require('jsonwebtoken')
-const { handleAuthResponse, findTask, insertTask, updateTask, removeTask } = require('./helpers')
+const { handleResponse, findTask, insertTask, updateTask, removeTask } = require('./helpers')
 const { handleError } = require('../helpers')
 
-
-function getTasks(request, response) {
-
-    findTask()
-        .then(data => {
-            response.end(JSON.stringify(data))
-        })
-        .catch(err => {
-            handleError(err, 'controllers/index.js', 'addTask')
-            handleAuthResponse(response, false)
-        })
-
+function getTaskById(request, response) {
+    const _id = request.body.id;
+    findTask({_id}).then(data => {
+      response.end(JSON.stringify(data))
+    })
+      .catch(err => {
+        handleError(err, 'controllers/index.js', 'addTask')
+        handleResponse(response, false)
+      })
+}
+function getUndoneTasks(request, response) {
+  const isDone = request.body.isDone;
+  findTask({isDone}).then(data => {
+    response.end(JSON.stringify(data))
+  })
+    .catch(err => {
+      handleError(err, 'controllers/index.js', 'addTask')
+      handleResponse(response, false)
+    })
+}
+function getTaskByOwner(request, response) {
+  const owner = request.body.owner;
+  findTask({owner}).then(data => {
+    response.end(JSON.stringify(data))
+  })
+    .catch(err => {
+      handleError(err, 'controllers/index.js', 'addTask')
+      handleResponse(response, false)
+    })
+}
+function getAllTasks(request, response) {
+  findTask().then(data => {
+    response.end(JSON.stringify(data))
+  })
+    .catch(err => {
+      handleError(err, 'controllers/index.js', 'addTask')
+      handleResponse(response, false)
+    })
 }
 
 
@@ -21,12 +47,11 @@ function editTask(request, response) {
     const task = request.body
     updateTask(task)
         .then((editedTask) => {
-            console.log('Log: signUp -> editedTask', editedTask)
-            handleAuthResponse(response, true)
+            handleResponse(response, true)
         })
         .catch(err => {
             handleError(err, 'controllers/index.js', 'editTask')
-            handleAuthResponse(response, false)
+            handleResponse(response, false)
         })
 }
 
@@ -34,12 +59,11 @@ function deleteTask(request, response) {
     const task = request.body
     removeTask(task)
         .then((deletedTask) => {
-            console.log('Log: signUp -> deletedTask', deletedTask)
-            handleAuthResponse(response, true)
+            handleResponse(response, true)
         })
         .catch(err => {
             handleError(err, 'controllers/index.js', 'deleteTask')
-            handleAuthResponse(response, false)
+            handleResponse(response, false)
         })
 }
 
@@ -47,17 +71,17 @@ function addTask(request, response) {
     const task = request.body
     insertTask(task)
         .then((insertedTask) => {
-            console.log('Log: signUp -> insertedTask', insertedTask)
-            handleAuthResponse(response, true)
+            handleResponse(response, true)
         })
         .catch(err => {
             handleError(err, 'controllers/index.js', 'addTask')
-            handleAuthResponse(response, false)
+            handleResponse(response, false)
         })
 }
 
 module.exports = {
-    getTasks,
+    getTaskById,
+    getTasks: getAllTasks,
     addTask,
     editTask,
     deleteTask,
