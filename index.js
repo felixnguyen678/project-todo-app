@@ -13,7 +13,7 @@ server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
 });
 
-mongoose.connect('mongodb+srv://root:12345ABC@cluster0.az6sc.mongodb.net/test\n', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://bean:12345ABC@cluster0.pzr7l.mongodb.net/test\n', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

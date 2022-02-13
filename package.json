@@ -4,7 +4,7 @@
     "description": "An example MVC NodeJS app",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
+        "start": "nodemon --config nodemon1.json",
         "dev": "nodemon --config nodemon.json"
     },
     "author": "",
