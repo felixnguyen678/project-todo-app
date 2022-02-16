@@ -8,6 +8,6 @@ export async function getAllTasks() {
 }
 
 export async function updateTask(updateInformation){
-  const {data} = await axios.post(`http://localhost:8080/update-tasks`, updateInformation);
+  const {data} = await axios.post(`http://localhost:8080/update-task`, updateInformation);
   return data;
 }

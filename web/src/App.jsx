@@ -25,7 +25,7 @@ function App() {
       </header>
       {
         isLoading && (<div className="spinner-border mt-5" role="status">
-          <span className="visually-hidden">Loading...</span>
+          <span className="visually-hidden"/>
         </div>)
       }
       <div className="container mt-5">

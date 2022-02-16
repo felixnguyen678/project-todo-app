@@ -2,9 +2,8 @@ import React, {useState} from "react";
 import {updateTask} from "../services/task.service";
 
 function TaskRow(props) {
-  const [isEditing, setEditing] = useState(props.status);
+  const [isEditing, setEditing] = useState(false);
   const [task, setTask] = useState(props.task);
-console.log(task);
   return (
     <tr>
       <td scope="row">
@@ -13,10 +12,17 @@ console.log(task);
           setTask({...task, isDone: !task.isDone});
 
         }}/></td>
-      <th scope="row">{task.taskName}</th>
+      <th scope="row" >{isEditing ? (<input type="text" value={task.taskName} onChange={(e) => setTask({...task, taskName: e.target.value})}/>) : task.taskName}</th>
       <td scope="row">
-        <button type="button" className="btn btn-link mx-1">Edit</button>
-        <i className="bi bi-x-circle-fill"></i>
+        {
+          isEditing ? (<button type="button" className="btn btn-link mx-1" onClick={async () => {
+            await updateTask({id: task.taskId, taskName: task.taskName});
+            setEditing(false);
+          }}>Save</button>) : (
+            <button type="button" className="btn btn-link mx-1" onClick={() => setEditing(true)}>Edit</button>
+          )
+        }
+
         <button type="button" className="btn btn-white text-danger">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                className="bi bi-x-circle-fill" viewBox="0 0 16 16">
