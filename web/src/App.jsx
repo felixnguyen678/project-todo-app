@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import React, {Component} from "react";
 import axios from 'axios';
 import {getAllTasks} from "./services/task.service";
-import Task from "./components/Task";
+import TaskRow from "./components/TaskRow";
 
 function App() {
   const [data, setData] = useState([]);
@@ -32,17 +32,15 @@ function App() {
         <table className="table">
           <thead>
           <tr>
+            <th scope="col"></th>
             <th scope="col">Task Name</th>
-            <th scope="col">Owner</th>
-            <th scope="col">Created At</th>
-            <th scope="col">Is Done ?</th>
             <th scope="col">Action</th>
           </tr>
           </thead>
           <tbody>
           {
             data.map(task => (
-              <Task task={task}/>)
+              <TaskRow task={task}/>)
             )
           }
           </tbody>
