@@ -3,16 +3,24 @@ const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
     taskName: {
-        type: 'string',
+        type: String,
         required: true,
     },
-    isDone: {
-        type: 'string',
+    owner: {
+        type: String,
+        required: true
+    },
+    project: {
+        type: String,
         required: false
     },
-    owner: {
-        type: 'number',
-        required: true
+    createdAt: {
+        type: Date,
+        required: false
+    },
+    isDone: {
+        type: Boolean,
+        required: false
     },
 });
 
