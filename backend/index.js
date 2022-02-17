@@ -4,16 +4,9 @@ const router = require("./router");
 
 const port = 8080;
 
-const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "*",
-    "Access-Control-Max-Age": 2592000, // 30 days
-    /** add other headers as per requirement */
-    "Access-Control-Allow-Headers": "Content-Type",
-};
+
 
 const server = http.createServer((request, response) => {
-    //response.writeHead(200, headers);
     const controller = router.route(request);
     controller(request, response);
 });

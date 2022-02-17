@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 const { User, Task } = require('../models')
-
+const {headers} = require("../helpers");
 function insertUser(user) {
     const password = user.password ? hashPassword(user.password) : undefined
     const newUser = {
@@ -22,6 +22,10 @@ function handleResponse(response, isSuccessful = false) {
     const data = {
         status: isSuccessful ? 'success' : 'fail'
     }
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Methods', '*');
+    response.setHeader('Access-Control-Max-Age', 2592000);
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type')
     response.setHeader('Content-Type', 'application/json');
     response.end(JSON.stringify(data));
 }
