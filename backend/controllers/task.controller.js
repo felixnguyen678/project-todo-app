@@ -1,11 +1,11 @@
-const jwt = require('jsonwebtoken')
-const { handleResponse, findTask, insertTask, updateTask, removeTask } = require('./helpers')
+const { handleResponse } = require('./helpers')
 const { handleError } = require('../helpers')
+const {Task} = require('./../models')
 
 function getTaskById(request, response) {
     const _id = request.body.id;
-    findTask({_id}).then(data => {
-      response.end(JSON.stringify(data))
+    Task.find({_id}).then(data => {
+      response.end(JSON.stringify(data[0]))
     })
       .catch(err => {
         handleError(err, 'controllers/index.js', 'addTask')
@@ -15,7 +15,7 @@ function getTaskById(request, response) {
 
 function getUndoneTasks(request, response) {
   const isDone = request.body.isDone;
-  findTask({isDone}).then(data => {
+  Task.find({isDone}).then(data => {
     response.end(JSON.stringify(data))
   })
     .catch(err => {
@@ -25,7 +25,7 @@ function getUndoneTasks(request, response) {
 }
 function getTaskByOwner(request, response) {
   const owner = request.body.owner;
-  findTask({owner}).then(data => {
+  Task.find({owner}).then(data => {
     response.end(JSON.stringify(data))
   })
     .catch(err => {
@@ -34,7 +34,7 @@ function getTaskByOwner(request, response) {
     })
 }
 function getAllTasks(request, response) {
-  findTask().then(data => {
+  Task.find().then(data => {
     response.end(JSON.stringify(data))
   })
     .catch(err => {
@@ -46,7 +46,7 @@ function getAllTasks(request, response) {
 
 function editTask(request, response) {
     const task = request.body
-    updateTask(task)
+    Task.findByIdAndUpdate(task.id, {...task})
         .then((editedTask) => {
             handleResponse(response, true)
         })
@@ -58,7 +58,7 @@ function editTask(request, response) {
 
 function deleteTask(request, response) {
     const task = request.body
-    removeTask(task)
+    Task.remove({ _id: task.id })
         .then((deletedTask) => {
             handleResponse(response, true)
         })
@@ -70,7 +70,7 @@ function deleteTask(request, response) {
 
 function addTask(request, response) {
     const task = request.body
-    insertTask(task)
+    Task.create(task)
         .then((insertedTask) => {
             handleResponse(response, true)
         })

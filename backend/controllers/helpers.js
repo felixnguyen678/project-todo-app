@@ -26,31 +26,10 @@ function handleResponse(response, isSuccessful = false) {
     response.end(JSON.stringify(data));
 }
 
-function findTask(task) {
-    return Task.find(task)
-}
-
-function insertTask(task) {
-    const newTask = {
-        taskName: task.taskName,
-        isDone: "false",
-        owner: task.owner
-    }
-    return Task.create(newTask)
-}
-
-function updateTask(task) {
-    return Task.findByIdAndUpdate(task.id, {...task})
-}
-
-function removeTask(task) {
-    return Task.remove({ _id: task.id })
-}
-
 function hashPassword(password) {
     // const hmac = crypto.createHmac('sha256', 'Sup3r_s3cr3t_k3yyyy');
     const hash = crypto.createHash('sha256')
     return hash.update(password).digest('hex')
 }
 
-module.exports = { insertUser, verifyUser, handleResponse, findTask, insertTask, updateTask, removeTask }
+module.exports = { insertUser, verifyUser, handleResponse}

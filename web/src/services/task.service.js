@@ -3,7 +3,7 @@ import Task from "../models/task.model";
 
 export async function getAllTasks() {
   const {data} = await axios.post(`http://localhost:8080/get-tasks`);
-  return data.map(data => new Task(data._id, data.taskName, data.owner, data.project, data.createdAt, data.isDone === "true"));
+  return data.map(data => new Task(data._id, data.taskName, data.owner, data.project, new Date(data.createdAt), data.isDone));
 
 }
 
