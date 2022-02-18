@@ -5,7 +5,9 @@ function insertUser(user) {
     const password = user.password ? hashPassword(user.password) : undefined
     const newUser = {
         username: user.username,
-        password
+        password,
+        status: user.status,
+        role: user.role
     }
     return User.create(newUser)
 }

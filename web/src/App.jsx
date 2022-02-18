@@ -1,10 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
-import {useEffect, useState} from "react";
-import React, {Component} from "react";
-import axios from 'axios';
+import React, {useEffect, useState} from "react";
 import {getAllTasks} from "./services/task.service";
 import TaskRow from "./components/TaskRow";
+import AddTaskForm from "./components/AddTaskForm";
 
 function App() {
   const [data, setData] = useState([]);
@@ -29,23 +27,13 @@ function App() {
         </div>)
       }
       <div className="container mt-5">
-        <table className="table">
-          <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">Task Name</th>
-            <th scope="col">Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          {
-            data.map(task => (
-              <TaskRow task={task}/>)
-            )
-          }
-          </tbody>
-        </table>
+        <AddTaskForm />
 
+        {
+          data.map(task => (
+            <TaskRow task={task}/>)
+          )
+        }
       </div>
     </div>
   );

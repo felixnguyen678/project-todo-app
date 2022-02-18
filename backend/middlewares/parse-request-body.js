@@ -1,6 +1,6 @@
 const { handleError } = require('../helpers')
 
-function parseRequestBody(request, response) {
+function parseRequestBody(request) {
   try {
     return new Promise((resolve, reject) => {
       const chunks = []

@@ -11,6 +11,16 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    // active or inactive
+    status: {
+        type: String,
+        required: true,
+    },
+    // user or admin
+    role: {
+        type: String,
+        required: true
+    }
 });
 
 const User = mongoose.model('User', userSchema);

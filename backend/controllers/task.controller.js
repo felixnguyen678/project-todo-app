@@ -1,9 +1,10 @@
 const { handleResponse } = require('./helpers')
-const { handleError } = require('../helpers')
+const { handleError, getPathnameArrayFromRequest, getQueryParams} = require('../helpers')
 const {Task} = require('./../models')
+const url = require("url");
 
 function getTaskById(request, response) {
-    const _id = request.body.id;
+    const _id = getPathnameArrayFromRequest(request)[1];
     Task.find({_id}).then(data => {
       response.end(JSON.stringify(data[0]))
     })
@@ -33,8 +34,9 @@ function getTaskByOwner(request, response) {
       handleResponse(response, false)
     })
 }
-function getAllTasks(request, response) {
-  Task.find().then(data => {
+function getTasks(request, response) {
+  const filter = getQueryParams(request);
+  Task.find(filter).then(data => {
     response.end(JSON.stringify(data))
   })
     .catch(err => {
@@ -44,9 +46,10 @@ function getAllTasks(request, response) {
 }
 
 
-function editTask(request, response) {
-    const task = request.body
-    Task.findByIdAndUpdate(task.id, {...task})
+function updateTaskById(request, response) {
+    const _id = getPathnameArrayFromRequest(request)[1];
+    const updateInformation = request.body
+    Task.findByIdAndUpdate(_id, {...updateInformation})
         .then((editedTask) => {
             handleResponse(response, true)
         })
@@ -57,8 +60,8 @@ function editTask(request, response) {
 }
 
 function deleteTask(request, response) {
-    const task = request.body
-    Task.remove({ _id: task.id })
+    const _id = getPathnameArrayFromRequest(request)[1];
+    Task.remove({ _id})
         .then((deletedTask) => {
             handleResponse(response, true)
         })
@@ -82,8 +85,8 @@ function addTask(request, response) {
 
 module.exports = {
     getTaskById,
-    getTasks: getAllTasks,
+    getTasks: getTasks,
     addTask,
-    editTask,
+    editTask: updateTaskById,
     deleteTask,
 }

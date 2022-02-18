@@ -1,54 +1,87 @@
 const url = require('url')
 const { handleNotFound, getTasks, addTask, editTask, deleteTask, signUp, signIn, pingWithAuth, getTaskById, getImage} = require('./controllers')
 const { authenticate } = require('./middlewares')
-const { handleError } = require('./helpers')
+const { handleError, convert2RoutePathname} = require('./helpers')
 const parseRequestBody = require("./middlewares/parse-request-body");
 
-const routes = {
-    '/sign-up': { 'POST': { controller: signUp, middlewares: [parseRequestBody] } },
-    '/sign-in': { 'POST': { controller: signIn, middlewares: [parseRequestBody] } },
-    '/add-task': { 'POST': { controller: addTask, middlewares: [parseRequestBody] } },
-    '/update-task': { 'POST': { controller: editTask, middlewares: [parseRequestBody] } },
-    '/delete-task': { 'POST': { controller: deleteTask, middlewares: [parseRequestBody] } },
-    '/get-tasks': { 'POST': { controller: getTasks, middlewares: [parseRequestBody] } },
-    '/get-task': { 'POST': { controller: getTaskById, middlewares: [parseRequestBody] } },
-    '/image': {'GET': {controller: getImage, middlewares: [] } },
-    '/ping-with-auth': {
-        'GET': {
-            controller: pingWithAuth,
-            middlewares: [authenticate]
-        }
+const routes = [
+    {
+        pathname: '/sign-up',
+        method: 'POST',
+        controller: signUp,
+        middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/sign-in',
+        method: 'POST',
+        controller: signIn,
+        middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/ping-with-auth',
+        method: 'POST',
+        controller: pingWithAuth,
+        middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/tasks',
+        method: 'GET',
+        controller: getTasks,
+        middlewares: []
+    },
+    {
+        pathname: '/tasks',
+        method: 'POST',
+        controller: addTask,
+        middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/tasks/{id}',
+        method: 'GET',
+        controller: getTaskById,
+        middlewares: []
+    },
+    {
+        pathname: '/tasks/{id}/update',
+        method: 'PATCH',
+        controller: editTask,
+        middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/tasks/{id}/delete',
+        method: 'DELETE',
+        controller: deleteTask,
+        middlewares: [parseRequestBody]
     }
-}
+]
 
 function route(req) {
-    const parsedUrl = url.parse(req.url, true)
-    if (routes[parsedUrl.pathname] && routes[parsedUrl.pathname][req.method]) {
-        const currentRouteData = routes[parsedUrl.pathname][req.method]
-        if (currentRouteData.middlewares && currentRouteData.middlewares.length > 0) {
-            return function controller(req, res) {
-                try {
-                    let promise = currentRouteData.middlewares[0](req, res)
-                    currentRouteData.middlewares.forEach((middleware, index) => {
-                            if (index > 0) {
-                                promise.then(() => middleware(req, res))
-                            }
-                        })
-                        // Call controller after all interceptor (middlewares)
-                    promise.then(() => currentRouteData.controller(req, res))
-                    return promise
-                } catch (error) {
-                    handleError(error, 'router.js', 'route() -> controller()')
-                    res.statusCode = 500
-                    res.end()
-                }
+    const parsedUrl = url.parse(req.url, true);
+    const routePathname = convert2RoutePathname(parsedUrl.pathname);
+    if(routes.filter(route => route.pathname === routePathname && route.method === req.method).length === 0){
+        return handleNotFound;
+    };
+    const route = routes.filter(route => route.pathname === routePathname && route.method === req.method)[0];
+    if(route.middlewares && route.middlewares.length > 0) {
+        return function handle(req, res) {
+            try {
+                let promise = route.middlewares[0](req, res)
+                route.middlewares.forEach((middleware, index) => {
+                    if(index > 0){
+                        promise.then(() => middleware(req))
+                    }
+                })
+                promise.then(() => route.controller(req, res));
+                return promise;
+            } catch (error) {
+                handleError(error, 'router.js', 'route() -> controller()')
+                res.statusCode = 500
+                res.end()
             }
         }
-
-        return currentRouteData.controller;
+    } else {
+        return route.controller;
     }
-
-    return handleNotFound
 }
 
 module.exports = { route }
