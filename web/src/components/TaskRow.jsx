@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {updateTask} from "../services/task.service";
+import {updateTaskById} from "../services/task.service";
 
 function TaskRow(props) {
   const [isEditing, setEditing] = useState(false);
@@ -7,7 +7,7 @@ function TaskRow(props) {
   return (
     <div className="d-flex justify-content-between border-2 border-bottom p-2">
       <input className="ms-2 mt-3 me-5" type="checkbox" checked={task.isDone} value="done" onChange={ async (e) =>{
-        await updateTask({_id: task._id, isDone: !task.isDone});
+        await updateTaskById(task._id,{isDone: !task.isDone});
         setTask({...task, isDone: !task.isDone});
 
       }}/>
@@ -15,7 +15,7 @@ function TaskRow(props) {
       <span>
         {
           isEditing ? (<button type="button" className="btn btn-link mx-1" onClick={async () => {
-            const data = await updateTask({_id: task._id, taskName: task.taskName});
+            const data = await updateTaskById(task._id, {taskName: task.taskName});
             console.log(data);
             setEditing(false);
           }}>Save</button>) : (
