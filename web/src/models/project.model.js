@@ -1,10 +1,10 @@
-function Project(projectId, projectName, createdAt, endAt, isDone, members) {
+function Project(_id, projectId, projectName, members, createdAt, finishedAt) {
+  this._id = _id;
   this.projectId = projectId;
   this.projectName = projectName;
   this.createdAt = createdAt;
   this.members = members;
-  this.endAt = endAt;
-  this.isDone = isDone;
+  this.finishedAt = finishedAt;
 }
 
 export default Project;

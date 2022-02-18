@@ -3,12 +3,7 @@ const { User, Task } = require('../models')
 const {headers} = require("../helpers");
 function insertUser(user) {
     const password = user.password ? hashPassword(user.password) : undefined
-    const newUser = {
-        username: user.username,
-        password,
-        status: user.status,
-        role: user.role
-    }
+    const newUser = {...user, password}
     return User.create(newUser)
 }
 

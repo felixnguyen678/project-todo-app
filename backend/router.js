@@ -1,8 +1,15 @@
 const url = require('url')
-const { handleNotFound, getTasks, addTask, editTask, deleteTask, signUp, signIn, pingWithAuth, getTaskById, getImage} = require('./controllers')
+const { handleNotFound, getTasks, addTask, updateTaskById, deleteTask, signUp, signIn, pingWithAuth, getTaskById, getImage,
+    getUsers,
+    addUser,
+    getUserByUsername,
+    updateUserByUsername,
+    deleteUserByUsername
+} = require('./controllers')
 const { authenticate } = require('./middlewares')
 const { handleError, convert2RoutePathname} = require('./helpers')
 const parseRequestBody = require("./middlewares/parse-request-body");
+const {addProject, getProjects, getProjectByById, updateProjectById, deleteProjectById} = require("./controllers/project.controller");
 
 const routes = [
     {
@@ -44,7 +51,7 @@ const routes = [
     {
         pathname: '/tasks/{id}/update',
         method: 'PATCH',
-        controller: editTask,
+        controller: updateTaskById,
         middlewares: [parseRequestBody]
     },
     {
@@ -52,6 +59,66 @@ const routes = [
         method: 'DELETE',
         controller: deleteTask,
         middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/users',
+        method: "GET",
+        controller: getUsers,
+        middlewares: []
+    },
+    {
+        pathname: '/users',
+        method: "POST",
+        controller: addUser,
+        middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/users/{username}',
+        method: "GET",
+        controller: getUserByUsername,
+        middlewares: []
+    },
+    {
+        pathname: '/users/{username}/update',
+        method: "PATCH",
+        controller: updateUserByUsername,
+        middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/users/{username}/delete',
+        method: "DELETE",
+        controller: deleteUserByUsername,
+        middlewares: []
+    },
+    {
+        pathname: '/projects',
+        method: "GET",
+        controller: getProjects,
+        middlewares: []
+    },
+    {
+        pathname: '/projects',
+        method: "POST",
+        controller: addProject,
+        middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/projects/{id}',
+        method: "GET",
+        controller: getProjectByById,
+        middlewares: []
+    },
+    {
+        pathname: '/projects/{id}/update',
+        method: "PATCH",
+        controller: updateProjectById,
+        middlewares: [parseRequestBody]
+    },
+    {
+        pathname: '/projects/{id}/delete',
+        method: "DELETE",
+        controller: deleteProjectById,
+        middlewares: []
     }
 ]
 

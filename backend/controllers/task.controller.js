@@ -14,26 +14,6 @@ function getTaskById(request, response) {
       })
 }
 
-function getUndoneTasks(request, response) {
-  const isDone = request.body.isDone;
-  Task.find({isDone}).then(data => {
-    response.end(JSON.stringify(data))
-  })
-    .catch(err => {
-      handleError(err, 'controllers/index.js', 'addTask')
-      handleResponse(response, false)
-    })
-}
-function getTaskByOwner(request, response) {
-  const owner = request.body.owner;
-  Task.find({owner}).then(data => {
-    response.end(JSON.stringify(data))
-  })
-    .catch(err => {
-      handleError(err, 'controllers/index.js', 'addTask')
-      handleResponse(response, false)
-    })
-}
 function getTasks(request, response) {
   const filter = getQueryParams(request);
   Task.find(filter).then(data => {
@@ -44,7 +24,6 @@ function getTasks(request, response) {
       handleResponse(response, false)
     })
 }
-
 
 function updateTaskById(request, response) {
     const _id = getPathnameArrayFromRequest(request)[1];
@@ -87,6 +66,6 @@ module.exports = {
     getTaskById,
     getTasks: getTasks,
     addTask,
-    editTask: updateTaskById,
+    updateTaskById,
     deleteTask,
 }

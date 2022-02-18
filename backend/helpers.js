@@ -29,7 +29,20 @@ exports.convert2RoutePathname = function (pathname) {
         case 'update': return '/tasks/{id}/update';
         case 'delete': return '/tasks/{id}/delete';
       }
-
+    case 'projects':
+      if(!path[1]) return '/projects';
+      switch (path[2]){
+        case undefined: return '/projects/{id}';
+        case 'update': return '/projects/{id}/update';
+        case 'delete': return '/projects/{id}/delete';
+      }
+    case 'users':
+      if(!path[1]) return '/users';
+      switch (path[2]){
+        case undefined: return '/users/{username}';
+        case 'update': return '/users/{username}/update';
+        case 'delete': return '/users/{username}/delete';
+      }
 
   }
 

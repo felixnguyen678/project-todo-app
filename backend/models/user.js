@@ -11,6 +11,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    fullName: {
+        type: String,
+        required: true
+    },
     // active or inactive
     status: {
         type: String,
