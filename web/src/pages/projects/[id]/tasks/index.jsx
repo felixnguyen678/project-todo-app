@@ -32,20 +32,20 @@ function TasksOfProjectPage() {
           <span className="visually-hidden"/>
         </div>)
       }
-      <div className="container mt-5">
-        <AddTaskForm />
-        <div className="row border-2 border-dark border-bottom p-2">
-          <strong className="col-1">Done</strong>
-          <strong className="col-5 text-start"><div className="ps-4">Task Name</div></strong>
-          <strong className="col-3 text-start"><div className="ps-4">Owner</div></strong>
-          <strong className="col-3">Action</strong>
+        <div className="container mt-5">
+          <AddTaskForm />
+          <div className="row border-2 border-dark border-bottom p-2">
+            <strong className="col-1">Done</strong>
+            <strong className="col-5 text-start"><div className="ps-4">Task Name</div></strong>
+            <strong className="col-3 text-start"><div className="ps-4">Owner</div></strong>
+            <strong className="col-3">Action</strong>
+          </div>
+          {
+            tasks.map(task => (
+              <TaskRow task={task}/>)
+            )
+          }
         </div>
-        {
-          tasks.map(task => (
-            <TaskRow task={task}/>)
-          )
-        }
-      </div>
     </div>
   );
 }
