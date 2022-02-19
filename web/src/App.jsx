@@ -15,7 +15,6 @@ function App() {
       setIsLoading(false);
     })()
   },[])
-  console.log(data);
   return (
     <div className="l-app">
       <header className="l-app__header">
