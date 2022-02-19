@@ -14,6 +14,11 @@ export async function getTaskById(_id) {
   return data ? new Task(data._id, data.taskName, data.owner, data.project, new Date(data.createdAt), data.isDone) : undefined;
 }
 
+export async function createTask(task) {
+  const {data} = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/tasks`, task);
+  return data;
+}
+
 export async function updateTaskById(_id, updateInformation){
   const {data} = await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/tasks/${_id}/update`, updateInformation);
   return data;

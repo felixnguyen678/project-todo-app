@@ -8,7 +8,7 @@ const taskSchema = new Schema({
     },
     owner: {
         type: String,
-        required: true
+        required: false
     },
     project: {
         type: String,
