@@ -1,9 +1,9 @@
 import './App.css';
 import React, {useContext, useEffect, useState} from "react";
-import {getAllTasks} from "./services/task.service";
 import TaskRow from "./components/TaskRow";
 import AddTaskForm from "./components/AddTaskForm";
 import DataContext from "./contexts/data.context";
+import {taskService} from "./services";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -12,7 +12,7 @@ function App() {
 
   async function getTaskFromDatabase() {
     setIsLoading(true);
-    const dataFromDatabase = await getAllTasks();
+    const dataFromDatabase = await taskService.getAllTasks();
     setTasks(dataFromDatabase);
     setIsLoading(false);
   }

@@ -1,11 +1,11 @@
 import React, {useContext, useState} from "react";
-import {createTask} from "../services/task.service";
 import DataContext from "../contexts/data.context";
+import {taskService} from "../services";
 
 function AddTaskForm(props) {
     const [task, setTask] = useState({});
     const addTask = async () => {
-      await createTask(task);
+      await taskService.createTask(task);
       setTask({});
     }
     console.log(task);
@@ -16,7 +16,7 @@ function AddTaskForm(props) {
                 <label htmlFor="newTaskName" className="col-form-label me-3">NewTask:</label>
                 <input type="text" id="newTaskName" className="form-control w-50 me-3" onChange={(e) => setTask({...task, taskName: e.target.value})}/>
                 <label htmlFor="newTaskOnwer" className="col-form-label me-3">Owner:</label>
-              <select className="me-3" id="newTaskOnwer" onChange={(e) => {setTask({...task, owner: e.target.value})}}>
+              <select className="me-3 form-select w-25" id="newTaskOnwer" onChange={(e) => {setTask({...task, owner: e.target.value})}}>
                 <option value="volvo">Volvo</option>
                 <option value="saab">Saab</option>
                 <option value="opel">Opel</option>
