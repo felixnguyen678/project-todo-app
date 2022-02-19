@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {deleteTaskById, getTaskById, updateTaskById} from "../services/task.service";
+import DataContext from "../contexts/data.context";
 
 function TaskRow(props) {
   const [isEditing, setEditing] = useState(false);
+  const [isAllDataFetched, setIsAllDataFetched] = useContext(DataContext.context);
   const [isChanging, setIsChanging] = useState(false);
   const [task, setTask] = useState();
 
@@ -13,25 +15,24 @@ function TaskRow(props) {
   useEffect(async () => {
     await getTaskFromDb();
   }, [])
-  console.log(task);
   if(!task) return <></>;
 
   return (
-    <div className="d-flex justify-content-between border-2 border-bottom p-2">
-      <input className="ms-2 mt-3 me-5" type="checkbox" checked={task.isDone} value="done" onChange={ async (e) =>{
+    <div className="row border-2 border-bottom p-2">
+      <input className="col-1 mt-3" type="checkbox" checked={task.isDone} value="done" onChange={ async (e) =>{
         await updateTaskById(task._id,{isDone: !task.isDone});
+        setIsAllDataFetched(false);
         setTask({...task, isDone: !task.isDone});
-
       }}/>
-      <strong className="mt-2">{isEditing ? (<input type="text" className="form-control" value={task.taskName} onChange={(e) => setTask({...task, taskName: e.target.value})}/>) : task.taskName}</strong>
-      <span>
+      <strong className="col-5 mt-2 text-start"><div className="ps-4">{isEditing ? (<input type="text" className="form-control" value={task.taskName} onChange={(e) => setTask({...task, taskName: e.target.value})}/>) : task.taskName}</div></strong>
+      <strong className="col-3 mt-2 text-start"><div className="ps-4">{isEditing ? (<input type="text" className="form-control" value={task.owner} onChange={(e) => setTask({...task, owner: e.target.value})}/>) : <span className="badge bg-primary">{task.owner}</span>}</div></strong>
+      <span className="col-3">
         {
-          isEditing ? (<button type="button" className="btn btn-link mx-1" onClick={async () => {
-            const data = await updateTaskById(task._id, {taskName: task.taskName});
-            console.log(data);
+          isEditing ? (<button type="button" className="btn btn-link" onClick={async () => {
+            const data = await updateTaskById(task._id, {taskName: task.taskName, owner: task.owner});
             setEditing(false);
           }}>Save</button>) : (
-            <button type="button" className="btn btn-link mx-1" onClick={() => setEditing(true)}>Edit</button>
+            <button type="button" className="btn btn-link" onClick={() => setEditing(true)}>Edit</button>
           )
         }
 

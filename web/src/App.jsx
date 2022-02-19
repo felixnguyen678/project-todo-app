@@ -1,20 +1,27 @@
 import './App.css';
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {getAllTasks} from "./services/task.service";
 import TaskRow from "./components/TaskRow";
 import AddTaskForm from "./components/AddTaskForm";
+import DataContext from "./contexts/data.context";
 
 function App() {
-  const [data, setData] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [isAllDataLoading, setIsAllDataLoading] = useContext(DataContext.context);
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const dataFromDatabase = await getAllTasks();
-      setData(dataFromDatabase);
-      setIsLoading(false);
-    })()
-  },[])
+
+  async function getTaskFromDatabase() {
+    setIsLoading(true);
+    const dataFromDatabase = await getAllTasks();
+    setTasks(dataFromDatabase);
+    setIsLoading(false);
+  }
+
+  useEffect(async () => {
+    await getTaskFromDatabase()
+  },[]);
+
+
   return (
     <div className="l-app">
       <header className="l-app__header">
@@ -25,15 +32,20 @@ function App() {
           <span className="visually-hidden"/>
         </div>)
       }
-      <div className="container mt-5">
-        <AddTaskForm />
-
-        {
-          data.map(task => (
-            <TaskRow task={task}/>)
-          )
-        }
-      </div>
+        <div className="container mt-5">
+          <AddTaskForm />
+          <div className="row border-2 border-dark border-bottom p-2">
+            <strong className="col-1">Done</strong>
+            <strong className="col-5 text-start"><div className="ps-4">Task Name</div></strong>
+            <strong className="col-3 text-start"><div className="ps-4">Owner</div></strong>
+            <strong className="col-3">Action</strong>
+          </div>
+          {
+            tasks.map(task => (
+              <TaskRow task={task}/>)
+            )
+          }
+        </div>
     </div>
   );
 }
