@@ -1,11 +1,10 @@
-import '../../../../App.css';
 import React, {useContext, useEffect, useState} from "react";
-import TaskRow from "../../../../components/TaskRow";
-import AddTaskForm from "../../../../components/AddTaskForm";
-import DataContext from "../../../../contexts/data.context";
-import {taskService} from "../../../../services";
+import TaskRow from "../../../components/TaskRow";
+import AddTaskForm from "../../../components/AddTaskForm";
+import DataContext from "../../../contexts/data.context";
+import {taskService} from "../../../services";
 
-function TasksOfProjectPage() {
+function User() {
   const [tasks, setTasks] = useState([]);
   const [isAllDataLoading, setIsAllDataLoading] = useContext(DataContext.context);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,4 +49,4 @@ function TasksOfProjectPage() {
   );
 }
 
-export default TasksOfProjectPage;
+export default User;
