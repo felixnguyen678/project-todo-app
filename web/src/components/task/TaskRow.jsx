@@ -19,7 +19,7 @@ function TaskRow(props) {
 
   return (
     <div className="row border-2 border-bottom p-2">
-      <input className="col-1 mt-3" type="checkbox" checked={task.isDone} value="done" onChange={ async (e) =>{
+      <input className="col-1 mt-3 c-todo-checkbox" type="checkbox" checked={task.isDone} value="done" onChange={ async (e) =>{
         await taskService.updateTaskById(task._id,{isDone: !task.isDone});
         setIsAllDataFetched(false);
         setTask({...task, isDone: !task.isDone});

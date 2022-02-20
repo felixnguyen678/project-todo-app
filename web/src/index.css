@@ -12,6 +12,6 @@ code {
     monospace;
 }
 
-input[type=checkbox] {
+input[type=checkbox].c-todo-checkbox {
   transform: scale(2.5);
 }
