@@ -1,4 +1,3 @@
-import axios from "axios";
 import Task from "../models/task.model";
 
 export function TaskService(restConnector) {

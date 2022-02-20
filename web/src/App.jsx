@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css"
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./routes";
 import TasksOfProject from "./routes/projects/[id]/tasks";
@@ -9,7 +10,6 @@ import CreateUser from "./routes/users/create";
 import EditUser from "./routes/users/[id]/edit";
 import Projects from "./routes/projects";
 import Project from "./routes/projects/[id]";
-import Tasks from "./routes/projects/[id]/tasks";
 import User from "./routes/users/[id]";
 import CreateProject from "./routes/projects/create";
 import EditProject from "./routes/projects/[id]/edit";

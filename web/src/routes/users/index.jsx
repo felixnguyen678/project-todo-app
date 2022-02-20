@@ -5,7 +5,7 @@ import AddTaskForm from "../../components/AddTaskForm";
 import TaskRow from "../../components/TaskRow";
 
 function Users(props) {
-  const [tasks, setTasks] = useState([]);
+  const [users, setUsers] = useState([]);
   const [isAllDataLoading, setIsAllDataLoading] = useContext(DataContext.context);
   const [isLoading, setIsLoading] = useState(false);
 

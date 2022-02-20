@@ -1,4 +1,3 @@
-import '../../../../App.css';
 import React, {useContext, useEffect, useState} from "react";
 import TaskRow from "../../../../components/TaskRow";
 import AddTaskForm from "../../../../components/AddTaskForm";
