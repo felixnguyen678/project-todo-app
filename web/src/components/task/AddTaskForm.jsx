@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
-import DataContext from "../contexts/data.context";
-import {taskService} from "../services";
+import DataContext from "../../contexts/data.context";
+import {taskService} from "../../services";
 
 function AddTaskForm(props) {
     const [task, setTask] = useState({});

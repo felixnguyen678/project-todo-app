@@ -6,5 +6,14 @@ function User(_id, username, password, fullName, status, role) {
   this.status = status;
   this.role = role;
 }
+export const UserStatus = {
+  ACTIVE: 'active',
+  INACTIVE: 'inactive'
+}
+
+export const UserRole = {
+  ADMIN: 'admin',
+  USER: 'user'
+}
 
 export default User;

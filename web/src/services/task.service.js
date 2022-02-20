@@ -1,6 +1,6 @@
 import Task from "../models/task.model";
 
-export function TaskService(restConnector) {
+function TaskService(restConnector) {
   this.restConnector = restConnector;
 
   this.getAllTasks = async () => {
@@ -29,3 +29,5 @@ export function TaskService(restConnector) {
     return data;
   }
 }
+
+export default TaskService;

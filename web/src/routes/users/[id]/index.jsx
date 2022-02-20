@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import TaskRow from "../../../components/TaskRow";
-import AddTaskForm from "../../../components/AddTaskForm";
+import TaskRow from "../../../components/task/TaskRow";
+import AddTaskForm from "../../../components/task/AddTaskForm";
 import DataContext from "../../../contexts/data.context";
 import {taskService} from "../../../services";
 

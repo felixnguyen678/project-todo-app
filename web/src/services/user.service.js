@@ -5,12 +5,12 @@ export function UserService(restConnector) {
 
   this.getAllUsers = async () => {
     const {data} = await this.restConnector.get('/users');
-    return data.map(user => new User(user.username, undefined, user.fullName, user.status, user.role));
+    return data.map(user => new User(user._id, user.username, undefined, user.fullName, user.status, user.role));
   }
 
   this.getUserByUsername = async (username) => {
-    const {data} = await this.restConnector.get('/users/${username}');
-    return data ? new User(data.username, undefined, data.fullName, data.status, data.role) : undefined;
+    const {data} = await this.restConnector.get(`/users/${username}`);
+    return data ? new User(data._id, data.username, undefined, data.fullName, data.status, data.role) : undefined;
   }
 
   this.createUser = async (user) => {
@@ -27,3 +27,5 @@ export function UserService(restConnector) {
     return data;
   }
 }
+
+export default UserService;

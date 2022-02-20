@@ -1,24 +1,25 @@
 import React, {useContext, useEffect, useState} from "react";
 import DataContext from "../../contexts/data.context";
-import {taskService} from "../../services";
-import AddTaskForm from "../../components/AddTaskForm";
-import TaskRow from "../../components/TaskRow";
+import {userService} from "../../services";
+import UserRow from "../../components/user/UserRow";
 
 function Users(props) {
   const [users, setUsers] = useState([]);
   const [isAllDataLoading, setIsAllDataLoading] = useContext(DataContext.context);
   const [isLoading, setIsLoading] = useState(false);
 
-  async function getTaskFromDatabase() {
+  async function getUsersFromDatabase() {
     setIsLoading(true);
-    const dataFromDatabase = await taskService.getAllTasks();
-    setTasks(dataFromDatabase);
+    const dataFromDatabase = await userService.getAllUsers();
+    setUsers(dataFromDatabase);
     setIsLoading(false);
   }
 
   useEffect(async () => {
-    await getTaskFromDatabase()
+    await getUsersFromDatabase()
   },[]);
+
+  if(!users) return <></>;
 
 
   return (
@@ -32,16 +33,17 @@ function Users(props) {
         </div>)
       }
       <div className="container mt-5">
-        <AddTaskForm />
+        {/*<AddTaskForm />*/}
         <div className="row border-2 border-dark border-bottom p-2">
-          <strong className="col-1">Done</strong>
-          <strong className="col-5 text-start"><div className="ps-4">Task Name</div></strong>
-          <strong className="col-3 text-start"><div className="ps-4">Owner</div></strong>
-          <strong className="col-3">Action</strong>
+          <strong className="col-3 text-start">Username</strong>
+          <strong className="col-3 text-start">Full Name</strong>
+          <strong className="col-2 text-start">Status</strong>
+          <strong className="col-2 text-start">Role</strong>
+          <strong className="col-2 text-center">Action</strong>
         </div>
         {
-          tasks.map(task => (
-            <TaskRow task={task}/>)
+          users.map(user => (
+            <UserRow user={user}/>)
           )
         }
       </div>

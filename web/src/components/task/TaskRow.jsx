@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import DataContext from "../contexts/data.context";
-import {taskService} from "../services";
+import DataContext from "../../contexts/data.context";
+import {taskService} from "../../services";
 
 function TaskRow(props) {
   const [isEditing, setEditing] = useState(false);
