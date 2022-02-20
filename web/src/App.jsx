@@ -13,9 +13,11 @@ import Project from "./routes/projects/[id]";
 import User from "./routes/users/[id]";
 import CreateProject from "./routes/projects/create";
 import EditProject from "./routes/projects/[id]/edit";
+import Header from "./components/common/Header";
 function App(props) {
   return (
     <>
+      <Header />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -23,10 +23,10 @@ function AddTaskForm(props) {
                 <option value="audi">Audi</option>
               </select>
                 {/*<input type="text" id="newTaskName" className="form-control w-25 me-3" onChange={(e) => setTask({...task, taskName: e.target.value})}/>*/}
-                <button type="submit" className="btn btn-primary" onClick={ async () => {
+                <button className="btn btn-primary" onClick={ async () => {
                   await addTask();
                   window.location.reload();
-                }}>Add new task</button>
+                }}>Add Task</button>
             </div>
         </>
     )

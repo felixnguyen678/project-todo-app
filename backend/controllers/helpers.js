@@ -3,6 +3,12 @@ const { User, Task } = require('../models')
 const {headers} = require("../helpers");
 function insertUser(user) {
     const password = user.password ? hashPassword(user.password) : undefined
+    const newUser = {...user}
+    return User.create(newUser)
+}
+
+function signUpUser(user) {
+    const password = user.password ? hashPassword(user.password) : undefined
     const newUser = {...user, password, status: 'active', role: 'user'}
     return User.create(newUser)
 }
@@ -33,4 +39,4 @@ function hashPassword(password) {
     return hash.update(password).digest('hex')
 }
 
-module.exports = { insertUser, verifyUser, handleResponse}
+module.exports = { insertUser, verifyUser, handleResponse, signUpUser}

@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken')
-const { insertUser, verifyUser, handleResponse} = require('./helpers')
+const { insertUser, verifyUser, handleResponse, signUpUser} = require('./helpers')
 const { handleError, getPathnameArrayFromRequest, getQueryParams} = require('../helpers')
 const {Project} = require("./../models");
 const User = require("../models/user");
 
 function signUp(request, response) {
     const user = request.body
-    insertUser(user)
+    signUpUser(user)
         .then((insertedUser) => {
             console.log('Log: signUp -> insertedUser', insertedUser)
             handleResponse(response, true)

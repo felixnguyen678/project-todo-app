@@ -23,9 +23,6 @@ function TasksOfProject() {
 
   return (
     <div className="l-app">
-      <header className="l-app__header">
-        Todo App
-      </header>
       {
         isLoading && (<div className="spinner-border mt-5" role="status">
           <span className="visually-hidden"/>

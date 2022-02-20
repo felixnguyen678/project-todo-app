@@ -15,3 +15,11 @@ code {
 input[type=checkbox].c-todo-checkbox {
   transform: scale(2.5);
 }
+
+a {
+  all: unset;
+}
+a:hover {
+  all: unset;
+  cursor: pointer;
+}

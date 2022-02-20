@@ -26,6 +26,17 @@ export function UserService(restConnector) {
     const {data} = await this.restConnector.delete(`/users/${username}/delete`);
     return data;
   }
+
+  this.signUp = async (user) => {
+    const {data} = await this.restConnector.post(`/sign-up`, user);
+    return data;
+  }
+
+  this.signIn = async (userInformation) => {
+    const {data} = await this.restConnector.post(`/sign-in`, userInformation);
+    return data;
+  }
+
 }
 
 export default UserService;
