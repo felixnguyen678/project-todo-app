@@ -13,6 +13,11 @@ function ProjectService(restConnector) {
     return data ? new Project(data._id, data.projectId, data.projectName, data.members, new Date(data.createdAt), new Date(data.finishedAt)): undefined;
   }
 
+  this.createProject = async (project)  => {
+    const {data} = await this.restConnector.post(`/projects`, project);
+    return data;
+  }
+
 }
 
 export default ProjectService;
