@@ -22,12 +22,8 @@ function TasksOfProject() {
 
 
   return (
-    <div className="l-app">
-      {
-        isLoading && (<div className="spinner-border mt-5" role="status">
-          <span className="visually-hidden"/>
-        </div>)
-      }
+    <>
+
         <div className="container mt-5">
           <AddTaskForm />
           <div className="row border-2 border-dark border-bottom p-2">
@@ -37,12 +33,17 @@ function TasksOfProject() {
             <strong className="col-3">Action</strong>
           </div>
           {
+            isLoading && (<div className="spinner-border mt-5 mx-auto d-block" role="status">
+              <span className="visually-hidden"/>
+            </div>)
+          }
+          {
             tasks.map(task => (
               <TaskRow task={task}/>)
             )
           }
         </div>
-    </div>
+    </>
   );
 }
 

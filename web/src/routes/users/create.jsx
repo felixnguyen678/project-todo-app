@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import {UserRole, UserStatus} from "../../models/user.model";
 import {userService} from "../../services";
 import Header from "../../components/common/Header";
+import {useNavigate} from "react-router";
 
 function CreateUser(props) {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     username: '',
     fullName: '',
@@ -55,6 +57,7 @@ function CreateUser(props) {
           </div>
           <button className="btn btn-primary" onClick={async () => {
             await createUser();
+            navigate("/users")
           }}>Submit</button>
         </div>
       </div>

@@ -25,12 +25,8 @@ function Users(props) {
 
 
   return (
-    <div className="l-app">
-      {
-        isLoading && (<div className="spinner-border mt-5" role="status">
-          <span className="visually-hidden"/>
-        </div>)
-      }
+    <>
+
       <div className="container mt-5">
         <div className="d-flex justify-content-end mb-4">
           <button className="btn btn-primary" onClick={() => navigate("/users/create")}>Add User<i className="ms-1 ri-user-add-line h5"></i></button>
@@ -43,12 +39,17 @@ function Users(props) {
           <strong className="col-2 text-center">Action</strong>
         </div>
         {
+          isLoading && (<div className="spinner-border mt-5 d-block mx-auto" role="status">
+            <span className="visually-hidden"/>
+          </div>)
+        }
+        {
           users.map(user => (
             <UserRow user={user}/>)
           )
         }
       </div>
-    </div>
+    </>
   );
 }
 

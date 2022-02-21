@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import DataContext from "../../contexts/data.context";
 import {userService} from "../../services";
 import {UserRoleBadge, UserStatusBadge} from "./badges";
+import {UserRole, UserStatus} from "../../models/user.model";
 
 function UserRow(props) {
   const [isEditing, setEditing] = useState(false);
@@ -22,8 +23,16 @@ function UserRow(props) {
     <div className="row border-2 border-bottom p-2">
       <strong className="col-3 mt-2 text-start">{user.username}</strong>
       <strong className="col-3 mt-2 text-start"><div className="">{isEditing ? (<input type="text" className="form-control" value={user.fullName} onChange={(e) => setUser({...user, fullName: e.target.value})}/>) : user.fullName}</div></strong>
-      <strong className="col-2 mt-2 text-start"><div className="">{isEditing ? (<input type="text" className="form-control" value={user.status} onChange={(e) => setUser({...user, status: e.target.value})}/>) : <UserStatusBadge status={user.status} /> }</div></strong>
-      <strong className="col-2 mt-2 text-start"><div>{isEditing ? (<input type="text" className="form-control" value={user.role} onChange={(e) => setUser({...user, role: e.target.value})}/>) : <UserRoleBadge role={user.role} /> }</div></strong>
+      <strong className="col-2 mt-2 text-start"><div className="">{isEditing ? (
+        <select className="form-select" value={user.status} onChange={(e) => setUser({...user, status: e.target.value})}>
+          <option value={UserStatus.ACTIVE}>{UserStatus.ACTIVE}</option>
+          <option value={UserStatus.INACTIVE}>{UserStatus.INACTIVE}</option>
+      </select>) : <UserStatusBadge status={user.status} /> }</div></strong>
+      <strong className="col-2 mt-2 text-start"><div>{isEditing ? (
+        <select className="form-select" value={user.role} onChange={(e) => setUser({...user, role: e.target.value})}>
+          <option value={UserRole.ADMIN}>{UserRole.ADMIN}</option>
+          <option value={UserRole.USER}>{UserRole.USER}</option>
+      </select>) : <UserRoleBadge role={user.role} /> }</div></strong>
       <span className="col-2">
         {
           isEditing ? (<button type="button" className="btn btn-link" onClick={async () => {
