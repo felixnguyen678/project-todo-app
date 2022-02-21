@@ -3,7 +3,12 @@ import DataContext from "../../contexts/data.context";
 import {taskService} from "../../services";
 
 function AddTaskForm(props) {
-    const [task, setTask] = useState({});
+
+    const [task, setTask] = useState({
+      createAt: new Date(),
+      project: props.project.projectId,
+      owner: props.project.members[0]
+    });
     const addTask = async () => {
       await taskService.createTask(task);
       setTask({});
@@ -17,10 +22,9 @@ function AddTaskForm(props) {
                 <input type="text" id="newTaskName" className="form-control w-50 me-3" onChange={(e) => setTask({...task, taskName: e.target.value})}/>
                 <label htmlFor="newTaskOnwer" className="col-form-label me-3">Owner:</label>
               <select className="me-3 form-select w-25" id="newTaskOnwer" onChange={(e) => {setTask({...task, owner: e.target.value})}}>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
+                {
+                  props.project.members.map(member => <option value={member}>{member}</option>)
+                }
               </select>
                 {/*<input type="text" id="newTaskName" className="form-control w-25 me-3" onChange={(e) => setTask({...task, taskName: e.target.value})}/>*/}
                 <button className="btn btn-primary" onClick={ async () => {

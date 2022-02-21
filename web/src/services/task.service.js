@@ -8,6 +8,11 @@ function TaskService(restConnector) {
     return data.map(data => new Task(data._id, data.taskName, data.owner, data.project, new Date(data.createdAt), data.isDone));
   }
 
+  this.getTasksOfProject = async (projectId) => {
+    const {data} = await this.restConnector.get(`/tasks?project=${projectId}`);
+    return data.map(data => new Task(data._id, data.taskName, data.owner, data.project, new Date(data.createdAt), data.isDone));
+  }
+
   this.getTaskById = async (_id) => {
     const {data} = await this.restConnector.get(`/tasks/${_id}`);
     return data ? new Task(data._id, data.taskName, data.owner, data.project, new Date(data.createdAt), data.isDone) : undefined;

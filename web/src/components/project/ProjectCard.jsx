@@ -6,10 +6,16 @@ import {useNavigate} from "react-router";
 const ProjectCard = ({project}) => {
   const navigate = useNavigate();
   return (
-    <div className={`c-project-card`} onClick={() => navigate(`/projects/${project.projectId}`)}>
+    <div className={`c-project-card`}>
       <div className="d-flex flex-column h-100 justify-content-between">
         <div>
-          <h3 className="ms-3 mt-3">{project.projectName}</h3>
+          <div className="d-flex justify-content-between">
+            <h3 className="ms-3 mt-3">{project.projectName}</h3>
+            <div className="mt-3 me-3">
+              <i className="ri-list-check h5 me-2" onClick={() => navigate(`/projects/${project.projectId}/tasks`, { state: {project} })}></i>
+              <i className="ri-edit-box-line h5"></i>
+            </div>
+          </div>
           <p className="ms-3 mt-3 text-secondary">{project.projectId}</p>
         </div>
         <div className="mx-3 mb-2 d-flex justify-content-between">

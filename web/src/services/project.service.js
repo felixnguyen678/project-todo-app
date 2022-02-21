@@ -3,7 +3,7 @@ import Project from "../models/project.model";
 function ProjectService(restConnector) {
   this.restConnector = restConnector;
 
-  this.getAllProject = async () => {
+  this.getAllProjects = async () => {
     const {data} = await this.restConnector.get('/projects');
     return data.map(project => new Project(project._id, project.projectId, project.projectName, project.members, new Date(project.createdAt), new Date(project.finishedAt)));
   }

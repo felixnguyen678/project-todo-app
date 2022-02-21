@@ -13,7 +13,7 @@ function Projects(props) {
 
   async function getProjectFromDatabase() {
     setIsLoading(true);
-    const dataFromDatabase = await projectService.getAllProject();
+    const dataFromDatabase = await projectService.getAllProjects();
     setProjects(dataFromDatabase);
     setIsLoading(false);
   }
