@@ -12,7 +12,7 @@ const ProjectCard = ({project}) => {
           <div className="d-flex justify-content-between">
             <h3 className="ms-3 mt-3">{project.projectName}</h3>
             <div className="mt-3 me-3">
-              <i className="ri-list-check h5 me-2" onClick={() => navigate(`/projects/${project.projectId}/tasks`, { state: {project} })}></i>
+              <i className="ri-list-check h5 me-2" style={{cursor: "pointer"}} onClick={() => navigate(`/projects/${project.projectId}/tasks`, { state: {project} })}></i>
               <i className="ri-edit-box-line h5"></i>
             </div>
           </div>
