@@ -17,7 +17,6 @@ function CreateProject(props) {
   useEffect(async () => {
     const dataFromDatabase = await userService.getAllUsers();
     chosenMember.current = dataFromDatabase[0].username;
-    console.log(chosenMember.current)
     setUsers(dataFromDatabase);
   },[]);
 
@@ -46,7 +45,6 @@ function CreateProject(props) {
             <div className="d-flex">
               <select className="form-select me-2" id="members"  onChange={(e) => {
                 chosenMember.current = e.target.value;
-                console.log(chosenMember);
               }}>
                 {
                   users.map(user => <option value={user.username}>{user.username}</option>)

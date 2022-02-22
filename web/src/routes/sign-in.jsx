@@ -20,7 +20,6 @@ function SignIn(props) {
           </div>
           <button className="btn btn-primary" onClick={async () => {
             let data = await userService.signIn(userInformation);
-            console.log(data);
           }}>Sign In</button>
         </div>
       </div>

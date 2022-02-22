@@ -18,6 +18,11 @@ function ProjectService(restConnector) {
     return data;
   }
 
+  this.updateProjectById = async (projectId, updateInformation) => {
+    const {data} = await  this.restConnector.patch(`/projects/${projectId}/update`, updateInformation);
+    return data;
+  }
+
 
 }
 
