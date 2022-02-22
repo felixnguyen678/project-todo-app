@@ -123,6 +123,7 @@ const routes = [
 ]
 
 function route(req) {
+    console.log(req.headers);
     const parsedUrl = url.parse(req.url, true);
     const routePathname = convert2RoutePathname(parsedUrl.pathname);
     if(routes.filter(route => route.pathname === routePathname && route.method === req.method).length === 0){
