@@ -13,6 +13,8 @@ function AddTaskForm(props) {
       await taskService.createTask(task);
       setTask({});
     }
+    if(!props.project) return <></>
+
     return(
         <>
             <div className="d-flex justify-content-center mb-5">
