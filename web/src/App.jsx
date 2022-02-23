@@ -15,8 +15,12 @@ import CreateProject from "./routes/projects/create";
 import EditProject from "./routes/projects/[id]/edit";
 import Header from "./components/common/Header";
 import AuthContext from "./contexts/auth.context";
-function App(props) {
+import Cookies from "js-cookie";
+import {ACCESS_TOKEN_COOKIE} from "./services/auth.service";
 
+const token = 'abc'
+function App(props) {
+  // Cookies.set(ACCESS_TOKEN_COOKIE, token);
   const authContext = useContext(AuthContext.context);
   console.log(authContext);
   return (

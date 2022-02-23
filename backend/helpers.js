@@ -38,6 +38,9 @@ exports.convert2RoutePathname = function (pathname) {
       }
     case 'users':
       if(!path[1]) return '/users';
+      switch (path[1]){
+        case 'me': return '/users/me';
+      }
       switch (path[2]){
         case undefined: return '/users/{username}';
         case 'update': return '/users/{username}/update';
