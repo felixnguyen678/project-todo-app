@@ -16,4 +16,14 @@ export const UserRole = {
   USER: 'user'
 }
 
+
+export const isAdmin = (user) => {
+  return user.role === UserRole.ADMIN;
+};
+
+export const matchRole = (user, role) => {
+  return user.role === UserRole.ADMIN || user.role === role;
+};
+
+
 export default User;

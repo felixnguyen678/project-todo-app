@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./App.css"
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./routes";
@@ -14,7 +14,11 @@ import User from "./routes/users/[id]";
 import CreateProject from "./routes/projects/create";
 import EditProject from "./routes/projects/[id]/edit";
 import Header from "./components/common/Header";
+import AuthContext from "./contexts/auth.context";
 function App(props) {
+
+  const authContext = useContext(AuthContext.context);
+  console.log(authContext);
   return (
     <>
       <Header />

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const context = React.createContext();
+const context = React.createContext(null);
 
 const DataContextProvider = (props) => {
   const [isAllDataFetched, setIsAllDataFetched] = useState(true);
@@ -13,8 +13,8 @@ const DataContextProvider = (props) => {
 };
 
 export default {
-  provider: DataContextProvider,
-  consumer: context.Consumer,
+  Provider: DataContextProvider,
+  Consumer: context.Consumer,
   context
 }
 

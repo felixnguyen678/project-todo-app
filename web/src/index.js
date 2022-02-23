@@ -6,12 +6,15 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import DataContext from "./contexts/data.context";
 import App from "./App";
+import AuthContext from "./contexts/auth.context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DataContext.provider>
-      <App />
-    </DataContext.provider>
+    <AuthContext.Provider>
+      <DataContext.Provider>
+        <App />
+      </DataContext.Provider>
+    </AuthContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
