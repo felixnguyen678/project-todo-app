@@ -24,7 +24,7 @@ function AuthService(restConnector) {
     }
 
     try {
-      const resp = await this.restConnector.get('/users/me');
+      const resp = await this.restConnector.post('/users/me');
       return resp.data;
     } catch (e) {
       return null;

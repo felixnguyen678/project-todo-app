@@ -1,7 +1,11 @@
-import React, {useState} from "react";
-import {userService} from "../services";
+import React, {useContext, useState} from "react";
+import {authService, userService} from "../services";
+import AuthContext from "../contexts/auth.context";
+import {useNavigate} from "react-router";
 
 function SignIn(props) {
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext.context)
   const [userInformation, setUserInformation] = useState({
     username: '',
     password: '',
@@ -19,7 +23,14 @@ function SignIn(props) {
             <input type="password" className="form-control" id="password"  onChange={(e) => setUserInformation({...userInformation, password: e.target.value})}/>
           </div>
           <button className="btn btn-primary" onClick={async () => {
-            let data = await userService.signIn(userInformation);
+            try {
+              let data = await userService.signIn(userInformation);
+              await authService.setAccessToken(data.token);
+              await authContext.fetchLoginUser();
+              navigate('/');
+            } catch(e) {
+              console.error(e);
+            }
           }}>Sign In</button>
         </div>
       </div>

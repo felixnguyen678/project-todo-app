@@ -18,11 +18,8 @@ import AuthContext from "./contexts/auth.context";
 import Cookies from "js-cookie";
 import {ACCESS_TOKEN_COOKIE} from "./services/auth.service";
 
-const token = 'abc'
 function App(props) {
-  // Cookies.set(ACCESS_TOKEN_COOKIE, token);
-  const authContext = useContext(AuthContext.context);
-  console.log(authContext);
+
   return (
     <>
       <Header />

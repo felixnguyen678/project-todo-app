@@ -24,7 +24,7 @@ function signIn(request, response) {
         if (!foundUser) {
             throw new Error('User not found')
         }
-        const token = jwt.sign({ userId: foundUser.id },
+        const token = jwt.sign({ username: foundUser.username},
             'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
         )
         const data = {
@@ -36,6 +36,30 @@ function signIn(request, response) {
         response.statusCode = 404
         response.end('Username or password is not correct.')
     })
+}
+
+function getMe(req, res) {
+    try {
+        if (!req.headers.authorization) {
+          throw new Error('Invalid token.')
+        }
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+        const { username} = decodedToken;
+        User.find({username}).then(data => {
+          if (data.length === 0) {
+            throw new Error('Invalid token.')
+          }
+          res.end(JSON.stringify(data[0]));
+        })
+      } catch (err) {
+        if (!err.message) {
+          handleError(err, 'controllers/user.controller.js', 'getMe')
+        }
+        const message = err.message || 'Invalid request!'
+        res.statusCode = 401
+        res.end(message)
+      }
 }
 
 
@@ -106,5 +130,6 @@ module.exports = {
     getUserByUsername,
     addUser,
     updateUserByUsername,
-    deleteUserByUsername
+    deleteUserByUsername,
+    getMe
 }

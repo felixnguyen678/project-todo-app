@@ -1,10 +1,12 @@
+const jwt = require('jsonwebtoken')
 const url = require('url')
 const { handleNotFound, getTasks, addTask, updateTaskById, deleteTask, signUp, signIn, pingWithAuth, getTaskById, getImage,
     getUsers,
     addUser,
     getUserByUsername,
     updateUserByUsername,
-    deleteUserByUsername
+    deleteUserByUsername,
+    getMe
 } = require('./controllers')
 const { authenticate } = require('./middlewares')
 const { handleError, convert2RoutePathname} = require('./helpers')
@@ -73,6 +75,12 @@ const routes = [
         middlewares: [parseRequestBody]
     },
     {
+        pathname: '/users/me',
+        method: "POST",
+        controller: getMe,
+        middlewares: [parseRequestBody]
+    },
+    {
         pathname: '/users/{username}',
         method: "GET",
         controller: getUserByUsername,
@@ -123,7 +131,6 @@ const routes = [
 ]
 
 function route(req) {
-    console.log(req.headers);
     const parsedUrl = url.parse(req.url, true);
     const routePathname = convert2RoutePathname(parsedUrl.pathname);
     if(routes.filter(route => route.pathname === routePathname && route.method === req.method).length === 0){
