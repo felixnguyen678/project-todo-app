@@ -62,19 +62,19 @@ const routes = [
         pathname: '/tasks/{id}/delete',
         method: 'DELETE',
         controller: deleteTask,
-        middlewares: [authenticate, parseRequestBody]
+        middlewares: [parseRequestBody, authenticate]
     },
     {
         pathname: '/users',
         method: "GET",
         controller: getUsers,
-        middlewares: [ adminAuthenticate, parseRequestBody]
+        middlewares: [ adminAuthenticate]
     },
     {
         pathname: '/users',
         method: "POST",
         controller: addUser,
-        middlewares: [adminAuthenticate, parseRequestBody]
+        middlewares: [parseRequestBody, adminAuthenticate]
     },
     {
         pathname: '/users/me',
@@ -92,7 +92,7 @@ const routes = [
         pathname: '/users/{username}/update',
         method: "PATCH",
         controller: updateUserByUsername,
-        middlewares: [adminAuthenticate, parseRequestBody]
+        middlewares: [parseRequestBody, adminAuthenticate]
     },
     {
         pathname: '/users/{username}/delete',
@@ -110,7 +110,7 @@ const routes = [
         pathname: '/projects',
         method: "POST",
         controller: addProject,
-        middlewares: [adminAuthenticate ,parseRequestBody]
+        middlewares: [parseRequestBody, adminAuthenticate]
     },
     {
         pathname: '/projects/{id}',
@@ -122,7 +122,7 @@ const routes = [
         pathname: '/projects/{id}/update',
         method: "PATCH",
         controller: updateProjectById,
-        middlewares: [adminAuthenticate,parseRequestBody]
+        middlewares: [parseRequestBody, adminAuthenticate]
     },
     {
         pathname: '/projects/{id}/delete',

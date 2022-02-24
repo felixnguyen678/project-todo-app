@@ -36,11 +36,11 @@ function CreateProject(props) {
           </div>
           <div className="mb-3">
             <label htmlFor="createdAt" className="form-label">Created At:</label>
-            <input type="date" className="form-control" value={format2InputDate(new Date())} id="createdAt"  onChange={(e) => setProject({...project, createdAt: e.target.value})}/>
+            <input type="date" className="form-control" value={format2InputDate(project.createdAt)} id="createdAt"  onChange={(e) => setProject({...project, createdAt: new Date(e.target.value)})}/>
           </div>
           <div className="mb-3">
             <label htmlFor="finishedAt" className="form-label">Finished At:</label>
-            <input type="date" className="form-control" value={format2InputDate(new Date())} id="finishedAt"  onChange={(e) => setProject({...project, finishedAt: e.target.value})}/>
+            <input type="date" className="form-control" value={format2InputDate(project.finishedAt)} id="finishedAt"  onChange={(e) => setProject({...project, finishedAt: new Date(e.target.value)})}/>
           </div>
           <div className="mb-3">
             <label htmlFor="members" className="form-label">Add Members:</label>

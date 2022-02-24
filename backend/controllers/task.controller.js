@@ -1,7 +1,6 @@
 const { handleResponse } = require('./helpers')
 const { handleError, getPathnameArrayFromRequest, getQueryParams} = require('../helpers')
 const {Task} = require('./../models')
-const url = require("url");
 
 function getTaskById(request, response) {
     const _id = getPathnameArrayFromRequest(request)[1];

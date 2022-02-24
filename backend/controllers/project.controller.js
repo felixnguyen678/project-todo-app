@@ -53,6 +53,7 @@ function deleteProjectById(request, response) {
 
 function addProject(request, response) {
   const project = request.body
+  console.log('project', project);
   Project.create(project)
     .then((insertedTask) => {
       handleResponse(response, true)
