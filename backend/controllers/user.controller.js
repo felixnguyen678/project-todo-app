@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { insertUser, verifyUser, handleResponse, signUpUser} = require('./helpers')
 const { handleError, getPathnameArrayFromRequest, getQueryParams} = require('../helpers')
-const {Project} = require("./../models");
 const User = require("../models/user");
 
 function signUp(request, response) {
@@ -12,8 +11,8 @@ function signUp(request, response) {
             handleResponse(response, true)
         })
         .catch(err => {
-            handleError(err, 'controllers/index.js', 'signUp')
-            handleResponse(response, false)
+            response.statusCode = 500;
+            response.end('Internal Server Error')
         })
 }
 
@@ -118,8 +117,8 @@ function addUser(request, response) {
           handleResponse(response, true)
       })
       .catch(err => {
-          handleError(err, 'controllers/index.js', 'addTask')
-          handleResponse(response, false)
+          response.statusCode = 500;
+          response.end('Internal Server Error')
       })
 }
 

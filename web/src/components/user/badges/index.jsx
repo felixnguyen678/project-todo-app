@@ -15,7 +15,7 @@ export const UserStatusBadge = ({status}) => {
       break;
   }
   return(
-    <span className={`badge ${color}`}>{status}</span>
+    <span className={`badge c-badge ${color}`}>{status}</span>
   )
 }
 
@@ -33,6 +33,6 @@ export const UserRoleBadge = ({role}) => {
       break;
   }
   return(
-    <span className={`badge ${color}`}>{role}</span>
+    <span className={`badge c-badge ${color}`}>{role}</span>
   )
 }

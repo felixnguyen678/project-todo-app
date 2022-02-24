@@ -5,17 +5,20 @@ const { User } = require('../models');
 
 
 function authenticate(req, res) {
-
+  console.log('authenticate');
+  return new Promise((resolve, reject) => {
     try {
       if (!req.headers.authorization) {
-        throw new Error('Invalid token.')
+        reject();
       }
       const token = req.headers.authorization.split(' ')[1];
       const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
       const { username} = decodedToken;
       return User.find({username}).then(data => {
         if (data.length === 0) {
-          throw new Error('Invalid token.')
+          reject();
+        } else {
+          resolve();
         }
       })
     } catch (err) {
@@ -23,36 +26,42 @@ function authenticate(req, res) {
         handleError(err, 'middlewares/authentication.js', 'authenticate')
       }
       const message = err.message || 'Invalid request!'
-      res.statusCode = 401
-      res.end(message)
+      reject()
     }
+  })
+
+
 }
 
 function adminAuthenticate(req, res) {
-  try {
-    if (!req.headers.authorization) {
-      throw new Error('Invalid token.')
-    }
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-    const { username } = decodedToken;
-
-    return User.find({username}).then(data => {
-      if (data.length === 0) {
-        throw new Error('Invalid token.')
+  console.log('adminauthenticate')
+  return new Promise ((resolve, reject) => {
+    try {
+      if (!req.headers.authorization) {
+        reject();
       }
-      if(data[0].role !== 'admin') {
-        throw new Error('Invalid admin token.')
+      const token = req.headers.authorization.split(' ')[1];
+      const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+      const { username } = decodedToken;
+  
+      return User.find({username}).then(data => {
+        if (data.length === 0) {
+          reject();
+  
+        } else if(data[0].role !== 'admin') {
+          reject();
+        } else {
+          resolve();
+        }
+      })
+    } catch (err) {
+      if (!err.message) {
+        handleError(err, 'middlewares/authentication.js', 'adminAuthenticate')
       }
-    })
-  } catch (err) {
-    if (!err.message) {
-      handleError(err, 'middlewares/authentication.js', 'adminAuthenticate')
+      reject();
     }
-    const message = err.message || 'Invalid request!'
-    res.statusCode = 401
-    res.end(message)
-  }
+  })
+  
 }
 
 

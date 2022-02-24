@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router";
 import {projectService, userService} from "../../services";
+import {format2InputDate} from "../../core/helpers";
+import {UserBadge} from "../../components/user/badges";
 
 function CreateProject(props) {
   const navigate = useNavigate();
@@ -34,11 +36,11 @@ function CreateProject(props) {
           </div>
           <div className="mb-3">
             <label htmlFor="createdAt" className="form-label">Created At:</label>
-            <input type="date" className="form-control" id="createdAt"  onChange={(e) => setProject({...project, createdAt: e.target.value})}/>
+            <input type="date" className="form-control" value={format2InputDate(new Date())} id="createdAt"  onChange={(e) => setProject({...project, createdAt: e.target.value})}/>
           </div>
           <div className="mb-3">
             <label htmlFor="finishedAt" className="form-label">Finished At:</label>
-            <input type="date" className="form-control" id="finishedAt"  onChange={(e) => setProject({...project, finishedAt: e.target.value})}/>
+            <input type="date" className="form-control" value={format2InputDate(new Date())} id="finishedAt"  onChange={(e) => setProject({...project, finishedAt: e.target.value})}/>
           </div>
           <div className="mb-3">
             <label htmlFor="members" className="form-label">Add Members:</label>
@@ -61,7 +63,11 @@ function CreateProject(props) {
           </div>
           <div className="mb-3">
             {
-              project.members.map(member => <div className="badge bg-primary me-1">{member}</div> )
+              project.members.map(member => <span className={`badge bg-primary me-2`}>{member} <i className="ri-close-line" style={{cursor: "pointer"}}  onClick={() => {
+                const updatedProject = {...project};
+                updatedProject.members = project.members.filter(item => item !== member);
+                setProject(updatedProject);
+              }}></i> </span> )
             }
           </div>
 

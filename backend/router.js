@@ -8,10 +8,12 @@ const { handleNotFound, getTasks, addTask, updateTaskById, deleteTask, signUp, s
     deleteUserByUsername,
     getMe
 } = require('./controllers')
-const { authenticate } = require('./middlewares')
+const { authenticate, adminAuthenticate } = require('./middlewares')
 const { handleError, convert2RoutePathname} = require('./helpers')
 const parseRequestBody = require("./middlewares/parse-request-body");
 const {addProject, getProjects, getProjectByById, updateProjectById, deleteProjectById} = require("./controllers/project.controller");
+const { resolve } = require('path')
+const { rejects } = require('assert')
 
 const routes = [
     {
@@ -36,7 +38,7 @@ const routes = [
         pathname: '/tasks',
         method: 'GET',
         controller: getTasks,
-        middlewares: []
+        middlewares: [authenticate]
     },
     {
         pathname: '/tasks',
@@ -48,31 +50,31 @@ const routes = [
         pathname: '/tasks/{id}',
         method: 'GET',
         controller: getTaskById,
-        middlewares: []
+        middlewares: [authenticate]
     },
     {
         pathname: '/tasks/{id}/update',
         method: 'PATCH',
         controller: updateTaskById,
-        middlewares: [parseRequestBody]
+        middlewares: [authenticate, parseRequestBody]
     },
     {
         pathname: '/tasks/{id}/delete',
         method: 'DELETE',
         controller: deleteTask,
-        middlewares: [parseRequestBody]
+        middlewares: [authenticate, parseRequestBody]
     },
     {
         pathname: '/users',
         method: "GET",
         controller: getUsers,
-        middlewares: []
+        middlewares: [ adminAuthenticate, parseRequestBody]
     },
     {
         pathname: '/users',
         method: "POST",
         controller: addUser,
-        middlewares: [parseRequestBody]
+        middlewares: [adminAuthenticate, parseRequestBody]
     },
     {
         pathname: '/users/me',
@@ -84,49 +86,49 @@ const routes = [
         pathname: '/users/{username}',
         method: "GET",
         controller: getUserByUsername,
-        middlewares: []
+        middlewares: [adminAuthenticate]
     },
     {
         pathname: '/users/{username}/update',
         method: "PATCH",
         controller: updateUserByUsername,
-        middlewares: [parseRequestBody]
+        middlewares: [adminAuthenticate, parseRequestBody]
     },
     {
         pathname: '/users/{username}/delete',
         method: "DELETE",
         controller: deleteUserByUsername,
-        middlewares: []
+        middlewares: [adminAuthenticate]
     },
     {
         pathname: '/projects',
         method: "GET",
         controller: getProjects,
-        middlewares: []
+        middlewares: [authenticate]
     },
     {
         pathname: '/projects',
         method: "POST",
         controller: addProject,
-        middlewares: [parseRequestBody]
+        middlewares: [adminAuthenticate ,parseRequestBody]
     },
     {
         pathname: '/projects/{id}',
         method: "GET",
         controller: getProjectByById,
-        middlewares: []
+        middlewares: [authenticate]
     },
     {
         pathname: '/projects/{id}/update',
         method: "PATCH",
         controller: updateProjectById,
-        middlewares: [parseRequestBody]
+        middlewares: [adminAuthenticate,parseRequestBody]
     },
     {
         pathname: '/projects/{id}/delete',
         method: "DELETE",
         controller: deleteProjectById,
-        middlewares: []
+        middlewares: [adminAuthenticate]
     }
 ]
 
@@ -143,10 +145,29 @@ function route(req) {
                 let promise = route.middlewares[0](req, res)
                 route.middlewares.forEach((middleware, index) => {
                     if(index > 0){
-                        promise.then(() => middleware(req))
+                        promise = promise.then(() => {
+                            if (!res.finished) {
+                                middleware(req)
+                            }
+                        }, () => {
+                            if(!res.finished){
+                                res.statusCode = 401;
+                                res.end();
+                            }
+                        })
                     }
                 })
-                promise.then(() => route.controller(req, res));
+                promise.then(() => {
+                    if(!res.finished){
+                        route.controller(req, res)
+                    }
+                }, () => {
+                    if(!res.finished){
+                        res.statusCode = 401;
+                        res.end();
+                    }
+                });
+                
                 return promise;
             } catch (error) {
                 handleError(error, 'router.js', 'route() -> controller()')

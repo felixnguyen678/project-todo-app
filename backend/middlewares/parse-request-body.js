@@ -1,6 +1,7 @@
 const { handleError } = require('../helpers')
 
 function parseRequestBody(request) {
+  console.log('parse-body-request')
   try {
     return new Promise((resolve, reject) => {
       const chunks = []
@@ -11,15 +12,15 @@ function parseRequestBody(request) {
         .on('end', () => {
           const data = JSON.parse(chunks.length > 0 ? chunks : '{}')
           request.body = data
-          resolve()
-        })
+          resolve();
+        })        
     })
   } catch (err) {
     if (!err.message) {
       handleError(err, 'middlewares/parse-request-body.js', 'parseRequestBody')
     }
     const message = err.message || 'Invalid request!'
-    res.statusCode = 401
+    res.statusCode = 400
     res.end(message)
   }
 }
