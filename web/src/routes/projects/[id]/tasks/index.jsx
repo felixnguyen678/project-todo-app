@@ -26,7 +26,6 @@ function TasksOfProject() {
     } else {
       const projectFromDatabase = await projectService.getProjectByProjectId(id);
       setProject(projectFromDatabase);
-      console.log(projectFromDatabase);
     }
     await getTaskFromDatabase();
     setIsLoading(false)

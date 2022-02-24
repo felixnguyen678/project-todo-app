@@ -1,0 +1,83 @@
+.l-app {
+  text-align: center;
+}
+
+.c-app__logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .c-app__logo {
+    animation: app-logo-spin infinite 20s linear;
+  }
+}
+
+.l-app__header {
+  background-color: #282c34;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.c-app__link {
+  color: #61dafb;
+}
+
+
+
+.l-sidenav {
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 100px;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+  border-right: #eceaea solid 1px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  hr {
+    margin: 10px 10px;
+  }
+
+  &__link {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+  }
+
+  &__link:hover {
+    color: black;
+  }
+}
+
+.l-sidenav a {
+}
+
+.l-sidenav a:hover {
+  color: #000000;
+}
+
+.l-main {
+  margin-left: 300px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+
+@keyframes app-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
