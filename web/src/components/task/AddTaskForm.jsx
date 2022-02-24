@@ -7,7 +7,8 @@ function AddTaskForm(props) {
     const [task, setTask] = useState({
       createAt: new Date(),
       project: props.project.projectId,
-      owner: props.project.members[0]
+      owner: props.project.members[0],
+      isDone: false
     });
     const addTask = async () => {
       await taskService.createTask(task);

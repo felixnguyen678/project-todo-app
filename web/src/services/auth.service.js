@@ -44,25 +44,20 @@ function AuthService(restConnector) {
     }
   }
 
-  this.logout = () => {
+  this.signOut = () => {
     this.setAccessToken(null);
   }
 
 
 
 
-  this.login = async (username, password) => {
+  this.signIn = async (userInformation) => {
     // Login with email and password.
-    const {data} = await this.restConnector.post(
-      '/accounts/login',
-      {username, password},
-    );
-
+    const {data} = await this.restConnector.post(`/sign-in`, userInformation);
     // Store access token into cookie.
-    this.setAccessToken(data.token);
-
+    await this.setAccessToken(data.token);
     // Fetch login user info.
-    return this.fetchUserInfo();
+    await this.fetchUserInfo();
   }
 
 

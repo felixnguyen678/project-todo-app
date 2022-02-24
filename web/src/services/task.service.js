@@ -12,6 +12,10 @@ function TaskService(restConnector) {
     const {data} = await this.restConnector.get(`/tasks?project=${projectId}`);
     return data.map(data => new Task(data._id, data.taskName, data.owner, data.project, new Date(data.createdAt), data.isDone));
   }
+  this.getTasksOfOwner = async (owner) => {
+    const {data} = await this.restConnector.get(`/tasks?owner=${owner}`);
+    return data.map(data => new Task(data._id, data.taskName, data.owner, data.project, new Date(data.createdAt), data.isDone));
+  }
 
   this.getTaskById = async (_id) => {
     const {data} = await this.restConnector.get(`/tasks/${_id}`);

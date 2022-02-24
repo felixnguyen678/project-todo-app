@@ -4,8 +4,11 @@ import {projectService} from "../../services";
 import {useNavigate} from "react-router";
 import ProjectCard from "../../components/project/ProjectCard";
 import AddNewProjectCard from "../../components/project/AddNewProjectCard";
+import useAuth from "../../hooks/useAuth";
+import {UserRole} from "../../models/user.model";
 
 function Projects(props) {
+  const {loginUser} = useAuth();
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [isAllDataLoading, setIsAllDataLoading] = useContext(DataContext.context);
@@ -36,9 +39,13 @@ function Projects(props) {
               <span className="visually-hidden"/>
             </div>) : (
               <>
-                <div className="col-lg-4 col-md-6 col-sm-12 mb-3">
-                  <AddNewProjectCard />
-                </div>
+                {
+                  loginUser.role === UserRole.ADMIN && (
+                    <div className="col-lg-4 col-md-6 col-sm-12 mb-3">
+                      <AddNewProjectCard />
+                    </div>
+                  )
+                }
                 {
                   projects.map(project => <div className="col-lg-4 col-md-6 col-sm-12"><ProjectCard project={project} /></div>)
                 }

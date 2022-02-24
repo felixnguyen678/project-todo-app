@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import TaskRow from "../../../../components/task/TaskRow";
+import ProjectTaskRow from "../../../../components/task/ProjectTaskRow";
 import AddTaskForm from "../../../../components/task/AddTaskForm";
 import DataContext from "../../../../contexts/data.context";
 import {projectService, taskService} from "../../../../services";
@@ -9,11 +9,10 @@ function TasksOfProject() {
   const {id} = useParams();
   const {state} = useLocation();
   const [tasks, setTasks] = useState([]);
-  const [isAllDataLoading, setIsAllDataLoading] = useContext(DataContext.context);
   const [isLoading, setIsLoading] = useState(false);
   const [project, setProject] = useState();
 
-  async function getTaskFromDatabase() {
+  async function getTasksFromDatabase() {
     setIsLoading(true);
     const dataFromDatabase = await taskService.getTasksOfProject(id);
     setTasks(dataFromDatabase);
@@ -27,7 +26,7 @@ function TasksOfProject() {
       const projectFromDatabase = await projectService.getProjectByProjectId(id);
       setProject(projectFromDatabase);
     }
-    await getTaskFromDatabase();
+    await getTasksFromDatabase();
     setIsLoading(false)
   },[]);
 
@@ -51,7 +50,7 @@ function TasksOfProject() {
           }
           {
             tasks.map(task => (
-              <TaskRow task={task} project={project}/>)
+              <ProjectTaskRow task={task} project={project}/>)
             )
           }
         </div>

@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import DataContext from "../../contexts/data.context";
 import {taskService} from "../../services";
 
-function TaskRow(props) {
+function ProjectTaskRow(props) {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isEditing, setEditing] = useState(false);
   const [task, setTask] = useState(props.task);
@@ -43,4 +43,4 @@ function TaskRow(props) {
   )
 }
 
-export default TaskRow;
+export default ProjectTaskRow;

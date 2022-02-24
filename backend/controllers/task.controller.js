@@ -26,9 +26,11 @@ function getTasks(request, response) {
 
 function updateTaskById(request, response) {
     const _id = getPathnameArrayFromRequest(request)[1];
+    console.log('id:', _id)
     const updateInformation = request.body
-    Task.findByIdAndUpdate(_id, {...updateInformation})
+    Task.findOneAndUpdate({_id}, {...updateInformation})
         .then((editedTask) => {
+          console.log(editedTask)
             handleResponse(response, true)
         })
         .catch(err => {
