@@ -27,6 +27,19 @@ const userSchema = new Schema({
     }
 });
 
+const UserRole = {
+    USER: 'user',
+    ADMIN: 'admin'
+}
+const UserStatus = {
+    ACTIVE: 'active',
+    INACTIVE: 'inactive'
+}
 const User = mongoose.model('User', userSchema);
 
-module.exports = User
+module.exports = {
+    User,
+    UserRole,
+    UserStatus
+}
+

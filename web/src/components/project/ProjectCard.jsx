@@ -1,5 +1,4 @@
 import React from "react";
-import './projectCard.scss'
 import {format2ShortDate} from "../../core/helpers";
 import {useNavigate} from "react-router";
 

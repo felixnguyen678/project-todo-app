@@ -38,7 +38,7 @@ function TasksOfProject() {
           {
             project && <AddTaskForm project={project}/>
           }
-          <div className="row border-2 border-dark border-bottom p-2">
+          <div className="row c-table__header">
             <strong className="col-1">Done</strong>
             <strong className="col-5 text-start"><div className="ps-4">Task Name</div></strong>
             <strong className="col-3 text-start"><div className="ps-4">Owner</div></strong>

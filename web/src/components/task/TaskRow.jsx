@@ -10,17 +10,17 @@ function TaskRow(props) {
   if(!task || isDeleted) return <></>;
 
   return (
-    <div className="row border-2 border-bottom p-2">
+    <div className="row c-table__row">
       <input className="col-1 mt-3 c-todo-checkbox" type="checkbox" checked={task.isDone} value="done" onChange={ async (e) =>{
         await taskService.updateTaskById(task._id,{isDone: !task.isDone});
         setTask({...task, isDone: !task.isDone});
       }}/>
-      <strong className="col-5 mt-2 text-start"><div className="ps-4">{isEditing ? (<input type="text" className="form-control" value={task.taskName} onChange={(e) => setTask({...task, taskName: e.target.value})}/>) : task.taskName}</div></strong>
-      <strong className="col-3 mt-2 text-start"><div className="ps-4">{isEditing ? (<select className="form-select" value={task.owner} onChange={(e) => setTask({...task, owner: e.target.value})}>
+      <span className="col-5 mt-2 text-start"><div className="ps-4">{isEditing ? (<input type="text" className="form-control" value={task.taskName} onChange={(e) => setTask({...task, taskName: e.target.value})}/>) : task.taskName}</div></span>
+      <span className="col-3 mt-2 text-start"><div className="ps-4">{isEditing ? (<select className="form-select" value={task.owner} onChange={(e) => setTask({...task, owner: e.target.value})}>
         {
           props.project.members.map(member => <option value={member}>{member}</option> )
         }
-      </select>) : <span className="badge bg-primary">{task.owner}</span>}</div></strong>
+      </select>) : <span className="badge bg-primary">{task.owner}</span>}</div></span>
       <span className="col-3">
         {
           isEditing ? (<button type="button" className="btn btn-link" onClick={async () => {

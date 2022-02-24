@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const { userRepository } = require('../repositories')
 const { handleError } = require('../helpers');
 const { User } = require('../models');
+const {UserStatus} = require("../models/user");
 
 
 function authenticate(req, res) {
@@ -49,6 +50,8 @@ function adminAuthenticate(req, res) {
           reject();
   
         } else if(data[0].role !== 'admin') {
+          reject();
+        } else if(data[0].status === UserStatus.INACTIVE) {
           reject();
         } else {
           resolve();

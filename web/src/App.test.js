@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import TasksOfProject from './routes/projects/[id]/tasks';
+import TasksOfProject from './pages/projects/[id]/tasks';
 
 test('renders learn react link', () => {
   render(<TasksOfProject />);

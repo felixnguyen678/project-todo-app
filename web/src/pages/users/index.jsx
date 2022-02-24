@@ -31,7 +31,7 @@ function Users(props) {
         <div className="d-flex justify-content-end mb-4">
           <button className="btn btn-primary" onClick={() => navigate("/users/create")}>Add User<i className="ms-1 ri-user-add-line h5"></i></button>
         </div>
-        <div className="row border-2 border-dark border-bottom p-2">
+        <div className="row c-table__header">
           <strong className="col-3 text-start">Username</strong>
           <strong className="col-3 text-start">Full Name</strong>
           <strong className="col-2 text-start">Status</strong>

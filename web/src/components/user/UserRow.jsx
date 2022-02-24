@@ -20,14 +20,14 @@ function UserRow(props) {
   if(!user) return <></>;
 
   return (
-    <div className="row border-2 border-bottom p-2">
-      <strong className="col-3 mt-2 text-start">{user.username}</strong>
-      <strong className="col-3 mt-2 text-start"><div className="">{isEditing ? (<input type="text" className="form-control" value={user.fullName} onChange={(e) => setUser({...user, fullName: e.target.value})}/>) : user.fullName}</div></strong>
-      <strong className="col-2 mt-2 text-start"><div className="">{isEditing ? (
+    <div className="row c-table__row">
+      <span className="col-3 mt-2 text-start">{user.username}</span>
+      <span className="col-3 mt-2 text-start"><div className="">{isEditing ? (<input type="text" className="form-control" value={user.fullName} onChange={(e) => setUser({...user, fullName: e.target.value})}/>) : user.fullName}</div></span>
+      <span className="col-2 mt-2 text-start"><div className="">{isEditing ? (
         <select className="form-select" value={user.status} onChange={(e) => setUser({...user, status: e.target.value})}>
           <option value={UserStatus.ACTIVE}>{UserStatus.ACTIVE}</option>
           <option value={UserStatus.INACTIVE}>{UserStatus.INACTIVE}</option>
-      </select>) : <UserStatusBadge status={user.status} /> }</div></strong>
+      </select>) : <UserStatusBadge status={user.status} /> }</div></span>
       <strong className="col-2 mt-2 text-start"><div>{isEditing ? (
         <select className="form-select" value={user.role} onChange={(e) => setUser({...user, role: e.target.value})}>
           <option value={UserRole.ADMIN}>{UserRole.ADMIN}</option>
