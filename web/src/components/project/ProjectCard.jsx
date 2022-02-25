@@ -1,8 +1,11 @@
 import React from "react";
 import {format2ShortDate} from "../../core/helpers";
 import {useNavigate} from "react-router";
+import useAuth from "../../hooks/useAuth";
+import {UserRole} from "../../models/user.model";
 
 const ProjectCard = ({project}) => {
+  const {loginUser} = useAuth();
   const navigate = useNavigate();
   return (
     <div className={`c-project-card`}>
@@ -13,7 +16,9 @@ const ProjectCard = ({project}) => {
             <div className="mt-3 me-3">
               <i className="ri-list-check c-project-card__button h5 me-2" onClick={() => navigate(`/projects/${project.projectId}/tasks`, { state: {project} })}></i>
               <i className="ri-eye-line c-project-card__button h5 me-2" onClick={() => navigate(`/projects/${project.projectId}`, { state: {project} })}/>
-              <i className="ri-edit-box-line c-project-card__button h5" onClick={() => navigate(`/projects/${project.projectId}/edit`, { state: {project} })}></i>
+              {
+                loginUser.role === UserRole.ADMIN && (              <i className="ri-edit-box-line c-project-card__button h5" onClick={() => navigate(`/projects/${project.projectId}/edit`, { state: {project} })}></i>)
+              }
             </div>
           </div>
           <p className="ms-3 text-secondary">{project.projectId}</p>

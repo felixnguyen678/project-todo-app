@@ -16,18 +16,18 @@ $appButtonColor: #5a8def;
   }
 }
 
+.c-home-nav {
+  cursor: pointer;
+}
+
 .l-app__header {
   background-color: $appMainColor;
   height: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
   position: fixed;
   top: 0;
   width: 100%;
+  padding-top: 25px;
 }
 
 $sidebarWidth: 250px;

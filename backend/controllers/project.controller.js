@@ -16,6 +16,7 @@ function getProjectByById(request, response) {
 
 function getProjects(request, response) {
   const filter = getQueryParams(request);
+  console.log(filter);
   Project.find(filter).then(data => {
     response.end(JSON.stringify(data))
   })

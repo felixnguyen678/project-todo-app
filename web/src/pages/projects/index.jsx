@@ -9,15 +9,19 @@ import {UserRole} from "../../models/user.model";
 
 function Projects(props) {
   const {loginUser} = useAuth();
-  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
-  const [isAllDataLoading, setIsAllDataLoading] = useContext(DataContext.context);
   const [isLoading, setIsLoading] = useState(false);
 
   async function getProjectFromDatabase() {
     setIsLoading(true);
-    const dataFromDatabase = await projectService.getAllProjects();
-    setProjects(dataFromDatabase);
+    if(loginUser.role === UserRole.ADMIN) {
+      const dataFromDatabase = await projectService.getAllProjects();
+      setProjects(dataFromDatabase);
+    } else {
+      const dataFromDatabase = await projectService.getProjectsOfUser(loginUser.username);
+      console.log(dataFromDatabase)
+      setProjects(dataFromDatabase);
+    }
     setIsLoading(false);
   }
 

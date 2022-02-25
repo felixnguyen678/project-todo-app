@@ -8,6 +8,11 @@ function ProjectService(restConnector) {
     return data.map(project => new Project(project._id, project.projectId, project.projectName, project.members, new Date(project.createdAt), new Date(project.finishedAt)));
   }
 
+  this.getProjectsOfUser = async (username) => {
+    const {data} = await this.restConnector.get(`/projects?members=${username}`);
+    return data.map(project => new Project(project._id, project.projectId, project.projectName, project.members, new Date(project.createdAt), new Date(project.finishedAt)));
+  }
+
   this.getProjectByProjectId = async (projectId) => {
     const {data} = await this.restConnector.get(`/projects/${projectId}`);
     return data ? new Project(data._id, data.projectId, data.projectName, data.members, new Date(data.createdAt), new Date(data.finishedAt)): undefined;

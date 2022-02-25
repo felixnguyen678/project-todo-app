@@ -1,8 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router";
 import {format2InputDate} from "../../../core/helpers";
+import useAuth from "../../../hooks/useAuth";
+import {UserRole} from "../../../models/user.model";
 
 function ProjectDetail(props) {
+  const {loginUser} = useAuth();
   const {state} = useLocation();
   const {project} = state;
   const navigate = useNavigate();
@@ -34,7 +37,11 @@ function ProjectDetail(props) {
             }
           </div>
           <div className="d-flex justify-content-center">
-            <button className="btn c-button me-2" onClick={() => navigate(`/projects/${project.projectId}/edit`, { state: {project} })}>Edit</button>
+            {
+            loginUser.role === UserRole.ADMIN && (
+                <button className="btn c-button me-2" onClick={() => navigate(`/projects/${project.projectId}/edit`, { state: {project} })}>Edit</button>
+              )
+          }
             <button className="btn c-button" onClick={() => navigate(`/projects/${project.projectId}/tasks`, { state: {project} })}>Tasks</button>
 
           </div>
