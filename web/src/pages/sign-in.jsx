@@ -26,7 +26,7 @@ function SignIn(props) {
           <div className="mb-3">
             <label htmlFor="signUp" className="form-label me-2">Dont have account?</label><a className="text-decoration-underline text-primary" onClick={() => navigate('/sign-up')}>Sign Up</a>
           </div>
-          <button className="btn btn-primary" onClick={async () => {
+          <button className="btn c-button" onClick={async () => {
             try {
               await authService.signIn(userInformation);
               window.location.href = '/';

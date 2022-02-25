@@ -1,5 +1,6 @@
-$appMainColor: #282c34;
+$appMainColor: #1c2436;
 $appSecondaryColor: #f5f5f5;
+$appButtonColor: #5a8def;
 .l-app {
   text-align: center;
 }
@@ -108,4 +109,13 @@ p, span, strong {
 
 .c-project-card:hover {
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.c-button {
+  background: $appButtonColor;
+  color:white;
+}
+
+.c-user-badge{
+  background: $appButtonColor;
 }

@@ -30,12 +30,12 @@ function ProjectDetail(props) {
           <div className="mb-3">
             <label htmlFor="members" className="form-label">Members:</label>
             {
-              project.members.map(member => <div className="badge bg-primary ms-1">{member}</div> )
+              project.members.map(member => <div className="badge c-user-badge ms-1">{member}</div> )
             }
           </div>
           <div className="d-flex justify-content-center">
-            <button className="btn btn-primary me-2" onClick={() => navigate(`/projects/${project.projectId}/edit`, { state: {project} })}>Edit</button>
-            <button className="btn btn-primary" onClick={() => navigate(`/projects/${project.projectId}/tasks`, { state: {project} })}>Tasks</button>
+            <button className="btn c-button me-2" onClick={() => navigate(`/projects/${project.projectId}/edit`, { state: {project} })}>Edit</button>
+            <button className="btn c-button" onClick={() => navigate(`/projects/${project.projectId}/tasks`, { state: {project} })}>Tasks</button>
 
           </div>
              </div>

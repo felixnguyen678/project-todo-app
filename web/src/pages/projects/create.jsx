@@ -52,7 +52,7 @@ function CreateProject(props) {
                   users.map(user => <option value={user.username}>{user.username}</option>)
                 }
               </select>
-              <button className="btn btn-success" onClick={(e) => {
+              <button className="btn btn-warning" onClick={(e) => {
                 if(project.members.filter(member => member === chosenMember.current).length === 0){
                   const updatedProject = {...project};
                   updatedProject.members.push(chosenMember.current);
@@ -63,7 +63,7 @@ function CreateProject(props) {
           </div>
           <div className="mb-3">
             {
-              project.members.map(member => <span className={`badge bg-primary me-2`}>{member} <i className="ri-close-line" style={{cursor: "pointer"}}  onClick={() => {
+              project.members.map(member => <span className={`badge c-user-badge me-2`}>{member} <i className="ri-close-line" style={{cursor: "pointer"}}  onClick={() => {
                 const updatedProject = {...project};
                 updatedProject.members = project.members.filter(item => item !== member);
                 setProject(updatedProject);
@@ -71,7 +71,7 @@ function CreateProject(props) {
             }
           </div>
 
-          <button className="btn btn-primary" onClick={async () => {
+          <button className="btn c-button" onClick={async () => {
             await projectService.createProject(project);
             navigate("/projects");
           }}>Create Project</button>

@@ -14,6 +14,7 @@ import Project from "../pages/projects/[id]";
 import TasksOfProject from "../pages/projects/[id]/tasks";
 import Header from "../components/common/Header";
 import Sidebar from "../components/common/Sidebar";
+import MyTasks from "../pages/tasks/me";
 
 const AdminOnly = () => {
   return (
@@ -35,7 +36,7 @@ const AdminOnly = () => {
             <Route path="/projects/:id" element={<Project />} />
             <Route path="/projects/:id/tasks" element={<TasksOfProject />} />
 
-            <Route path="/tasks/me" element={<Home />} />
+            <Route path="/tasks/me" element={<MyTasks />} />
           </Routes>
         </BrowserRouter>
       </div>

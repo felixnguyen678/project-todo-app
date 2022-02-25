@@ -47,7 +47,7 @@ function CreateProject(props) {
                   users.map(user => <option value={user.username}>{user.username}</option>)
                 }
               </select>
-              <button className="btn btn-success" onClick={(e) => {
+              <button className="btn btn-warning" onClick={(e) => {
                 if(project.members.filter(member => member === chosenMember.current).length === 0){
                   const newProject = {...updatedProject};
                   newProject.members.push(chosenMember.current);
@@ -58,14 +58,14 @@ function CreateProject(props) {
           </div>
           <div className="mb-3">
             {
-              project.members.map(member => <div className="badge bg-primary me-1" onClick={(e) => {
+              project.members.map(member => <div className="badge c-user-badge me-1" onClick={(e) => {
                 const newProject = {...updatedProject, member: updatedProject.members.filter(item => item !== member)};
                 setUpdatedProject(newProject);
               }}>{member}</div> )
             }
           </div>
 
-          <button className="btn btn-primary" onClick={async () => {
+          <button className="btn c-button" onClick={async () => {
             await projectService.updateProjectById(project.projectId, {
               projectName: updatedProject.projectName,
               members: updatedProject.members,

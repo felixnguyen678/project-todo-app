@@ -20,7 +20,7 @@ function ProjectTaskRow(props) {
         {
           props.project.members.map(member => <option value={member}>{member}</option> )
         }
-      </select>) : <span className="badge bg-primary">{task.owner}</span>}</div></span>
+      </select>) : <span className="badge c-user-badge">{task.owner}</span>}</div></span>
       <span className="col-3">
         {
           isEditing ? (<button type="button" className="btn btn-link" onClick={async () => {
