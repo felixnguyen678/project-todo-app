@@ -36,13 +36,13 @@ function Projects(props) {
     <>
 
       <div className="container mt-5">
-        <div className="row">
 
           {
             isLoading ?(<div className="spinner-border mt-5 d-block mx-auto" role="status">
               <span className="visually-hidden"/>
             </div>) : (
               <>
+                <div className="row">
                 {
                   loginUser.role === UserRole.ADMIN && (
                     <div className="col-lg-4 col-md-6 col-sm-12">
@@ -53,12 +53,12 @@ function Projects(props) {
                 {
                   projects.map(project => <div className="col-lg-4 col-md-6 col-sm-12"><ProjectCard project={project} /></div>)
                 }
+                </div>
+                {projects.length === 0 && (<p className="">No data found.</p>)}
                 </>
 
             )
           }
-
-        </div>
       </div>
     </>
   );

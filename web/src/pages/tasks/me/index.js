@@ -38,6 +38,9 @@ const MyTasks = () => {
             <MyTaskRow task={task}/>)
           )
         }
+        {
+          tasks.length === 0 && (<p className="text-center mt-5">No data found.</p>)
+        }
       </div>
     </>
   )

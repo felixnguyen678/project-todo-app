@@ -48,6 +48,9 @@ function Users(props) {
             <UserRow user={user}/>)
           )
         }
+        {
+          users.length === 0 && (<p className="mt-5 text-center">No data found.</p>)
+        }
       </div>
     </>
   );
