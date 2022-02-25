@@ -37,15 +37,15 @@ function SignUp(props) {
                 throw new Error('Password not match')
               }
               await userService.signUp(user);
+              toast.success('Sign up successfully', {
+                position: "top-right", autoClose: 5000, hideProgressBar:true
+              })
               navigate("/sign-in");
             } catch (e) {
               toast.error('Sign up failed because password not match or username has existed, please check again', {
                 position: "top-right", autoClose: 5000, hideProgressBar:true
               })
             }
-            toast.success('Sign up successfully', {
-              position: "top-right", autoClose: 5000, hideProgressBar:true
-            })
           }}>Sign Up</button>
         </div>
       </div>

@@ -3,6 +3,7 @@ import {UserRole, UserStatus} from "../../models/user.model";
 import {userService} from "../../services";
 import Header from "../../components/common/Header";
 import {useNavigate} from "react-router";
+import {toast} from "react-toastify";
 
 function CreateUser(props) {
   const navigate = useNavigate();
@@ -56,8 +57,17 @@ function CreateUser(props) {
             </div>
           </div>
           <button className="btn btn-primary" onClick={async () => {
-            await createUser();
-            navigate("/users")
+            try {
+              await createUser();
+              toast.success('Create user successfully', {
+                position: "top-right", autoClose: 5000, hideProgressBar:true
+              })
+              navigate("/users");
+            } catch (e) {
+              toast.error('Create failed, account has been existed.', {
+                position: "top-right", autoClose: 5000, hideProgressBar:true
+              })
+            }
           }}>Submit</button>
         </div>
       </div>
