@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import {authService, userService} from "../services";
-import AuthContext from "../contexts/auth.context";
 import {useNavigate} from "react-router";
 import useAuth from "../hooks/useAuth";
+import {ToastContainer, toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignIn(props) {
   const navigate = useNavigate();
@@ -29,9 +30,17 @@ function SignIn(props) {
           <button className="btn c-button" onClick={async () => {
             try {
               await authService.signIn(userInformation);
-              window.location.href = '/';
+              toast.success('Login successfully !!!', {
+                position: "top-right",
+                autoClose: 800,
+                hideProgressBar: false,
+              });
+              navigate('/');
             } catch(e) {
               console.error(e);
+              toast.error('Login failed', {
+                position: "top-right", autoClose: 800, hideProgressBar:true
+              })
             }
           }}>Sign In</button>
         </div>

@@ -6,6 +6,7 @@ import AdminOnly from "./routes/adminOnly";
 import GuestOnly from "./routes/guestOnly";
 import {UserRole} from "./models/user.model";
 import UserOnly from "./routes/UserOnly";
+import {ToastContainer} from "react-toastify";
 function App(props) {
   const auth = useAuth();
 
@@ -18,6 +19,7 @@ function App(props) {
 
   return (
     <>
+      <ToastContainer/>
       {
         !auth.loginUser ? <GuestOnly /> : auth.loginUser.role === UserRole.ADMIN ? <AdminOnly /> : <UserOnly />
       }

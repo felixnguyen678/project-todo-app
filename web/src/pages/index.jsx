@@ -3,13 +3,17 @@ import useAuth from "../hooks/useAuth";
 import {useNavigate} from "react-router";
 
 function Home(props) {
-  const {loginUser} = useAuth();
+  const {loginUser, fetchLoginUser} = useAuth();
   const navigate = useNavigate();
-  if(!loginUser) {
-    navigate('/sign-in');
-  } else {
-    navigate('/projects');
-  }
+
+  useEffect(async () => {
+    await fetchLoginUser();
+    if(!loginUser) {
+      navigate('/sign-in');
+    } else {
+      navigate('/projects');
+    }
+  }, [])
   return (
     <></>
   )

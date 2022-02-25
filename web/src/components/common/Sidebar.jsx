@@ -1,5 +1,9 @@
 import React from 'react';
 import {authService} from "../../services";
+import {toast} from "react-toastify";
+import {useNavigate} from "react-router";
+import Swal from 'sweetalert2'
+
 
 const Sidebar = ({admin}) => {
   return (
@@ -11,9 +15,21 @@ const Sidebar = ({admin}) => {
       }
       <hr/>
       <div className="l-sidenav__link" onClick={async () => {
-        console.log('ih')
-        await authService.signOut();
-        window.location.href = '/';
+        Swal.fire({
+          title: 'Do you want to log out',
+          showDenyButton: true,
+          confirmButtonText: 'Yes',
+          denyButtonText: `No`,
+        }).then(async (result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            await authService.signOut();
+            window.location.href = '/'
+            Swal.fire('Logged out', '', 'success')
+          } else if (result.isDenied) {
+          }
+        })
+
       }}><i className="ri-logout-box-r-fill me-3 h2"></i>Log out</div>
     </div>
   )

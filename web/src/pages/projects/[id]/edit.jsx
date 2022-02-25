@@ -2,8 +2,10 @@ import React, {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router";
 import {userService} from "../../../services";
 import {projectService} from "../../../services";
+import {format2InputDate} from "../../../core/helpers";
+import {toast} from "react-toastify";
 
-function CreateProject(props) {
+function UpdateProject(props) {
   const history = useLocation();
   const {project} = history.state;
   const navigate = useNavigate();
@@ -31,11 +33,11 @@ function CreateProject(props) {
           </div>
           <div className="mb-3">
             <label htmlFor="createdAt" className="form-label">Created At:</label>
-            <input type="date" value={updatedProject.createdAt} className="form-control" id="createdAt"  onChange={(e) => setUpdatedProject({...updatedProject, createdAt: e.target.value})}/>
+            <input type="date" value={format2InputDate(updatedProject.createdAt)} className="form-control" id="createdAt"  onChange={(e) => setUpdatedProject({...updatedProject, createdAt: new Date(e.target.value)})}/>
           </div>
           <div className="mb-3">
             <label htmlFor="finishedAt" className="form-label">Finished At:</label>
-            <input type="date" value={updatedProject.finishedAt} className="form-control" id="finishedAt"  onChange={(e) => setUpdatedProject({...updatedProject, finishedAt: e.target.value})}/>
+            <input type="date" value={format2InputDate(updatedProject.finishedAt)} className="form-control" id="finishedAt"  onChange={(e) => setUpdatedProject({...updatedProject, finishedAt: new Date(e.target.value)})}/>
           </div>
           <div className="mb-3">
             <label htmlFor="members" className="form-label">Add Members:</label>
@@ -48,7 +50,7 @@ function CreateProject(props) {
                 }
               </select>
               <button className="btn btn-warning" onClick={(e) => {
-                if(project.members.filter(member => member === chosenMember.current).length === 0){
+                if(updatedProject.members.filter(member => member === chosenMember.current).length === 0){
                   const newProject = {...updatedProject};
                   newProject.members.push(chosenMember.current);
                   setUpdatedProject(newProject);
@@ -58,21 +60,32 @@ function CreateProject(props) {
           </div>
           <div className="mb-3">
             {
-              project.members.map(member => <div className="badge c-user-badge me-1" onClick={(e) => {
-                const newProject = {...updatedProject, member: updatedProject.members.filter(item => item !== member)};
+              updatedProject.members.map(member => <div className="badge c-user-badge me-2 mb-1">{member}<i className="ri-close-line" style={{cursor: "pointer"}}onClick={(e) => {
+                const newProject = {...updatedProject, members: updatedProject.members.filter(item => item !== member)};
                 setUpdatedProject(newProject);
-              }}>{member}</div> )
+              }}></i> </div> )
             }
           </div>
 
           <button className="btn c-button" onClick={async () => {
-            await projectService.updateProjectById(project.projectId, {
-              projectName: updatedProject.projectName,
-              members: updatedProject.members,
-              createdAt: updatedProject.createdAt,
-              finishedAt: updatedProject.finishedAt
-            });
-            window.location.reload();
+            try{
+              await projectService.updateProjectById(project.projectId, {
+                projectName: updatedProject.projectName,
+                members: updatedProject.members,
+                createdAt: updatedProject.createdAt,
+                finishedAt: updatedProject.finishedAt
+              });
+              toast.success('Update successfully !!!', {
+                position: "top-right",
+                autoClose: 800,
+                hideProgressBar: false,
+              });
+              navigate('/projects');
+            } catch (e) {
+              toast.error('Update failed, check again', {
+                position: "top-right", autoClose: 1200, hideProgressBar:true
+              })
+            }
           }}>Update</button>
         </div>
       </div>
@@ -81,4 +94,4 @@ function CreateProject(props) {
   )
 }
 
-export default CreateProject;
+export default UpdateProject;

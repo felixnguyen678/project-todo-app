@@ -59,8 +59,8 @@ function addProject(request, response) {
       handleResponse(response, true)
     })
     .catch(err => {
-      handleError(err, 'controllers/index.js', 'addTask')
-      handleResponse(response, false)
+      response.statusCode = 500;
+      response.end('Internal Server Error')
     })
 }
 

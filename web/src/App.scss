@@ -25,6 +25,9 @@ $appButtonColor: #5a8def;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 $sidebarWidth: 250px;
@@ -32,6 +35,8 @@ $sidebarWidth: 250px;
 .c-app__link {
   color: #61dafb;
 }
+
+
 
 
 
@@ -70,6 +75,11 @@ $sidebarWidth: 250px;
 .l-main {
   margin-left: $sidebarWidth; /* Same as the width of the sidenav */
   padding: 0px 10px;
+  margin-top: 160px;
+}
+
+.l-center-main {
+  margin-top: 240px;
 }
 
 p, span, strong {

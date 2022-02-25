@@ -15,7 +15,7 @@ function TasksOfProject() {
   async function getTasksFromDatabase() {
     setIsLoading(true);
     const dataFromDatabase = await taskService.getTasksOfProject(id);
-    setTasks(dataFromDatabase);
+    setTasks(dataFromDatabase.reverse());
     setIsLoading(false);
   }
   useEffect(async () => {

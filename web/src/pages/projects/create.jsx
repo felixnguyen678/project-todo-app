@@ -3,6 +3,7 @@ import {useNavigate} from "react-router";
 import {projectService, userService} from "../../services";
 import {format2InputDate} from "../../core/helpers";
 import {UserBadge} from "../../components/user/badges";
+import {toast} from "react-toastify";
 
 function CreateProject(props) {
   const navigate = useNavigate();
@@ -72,8 +73,20 @@ function CreateProject(props) {
           </div>
 
           <button className="btn c-button" onClick={async () => {
-            await projectService.createProject(project);
-            navigate("/projects");
+            try{
+              await projectService.createProject(project);
+              toast.success('Create successfully !!!', {
+                position: "top-right",
+                autoClose: 800,
+                hideProgressBar: false,
+              });
+              navigate('/projects');
+            } catch (e) {
+              toast.error('Create failed, check again', {
+                position: "top-right", autoClose: 1200, hideProgressBar:true
+              })
+            }
+
           }}>Create Project</button>
         </div>
       </div>

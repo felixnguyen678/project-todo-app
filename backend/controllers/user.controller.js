@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const { insertUser, verifyUser, handleResponse, signUpUser} = require('./helpers')
 const { handleError, getPathnameArrayFromRequest, getQueryParams} = require('../helpers')
-const {User} = require("../models/user");
+const {User, UserStatus} = require("../models/user");
 
 function signUp(request, response) {
     const user = request.body
@@ -22,6 +22,9 @@ function signIn(request, response) {
     verifyUser(user).then(foundUser => {
         if (!foundUser) {
             throw new Error('User not found')
+        }
+        if(foundUser.status === UserStatus.INACTIVE) {
+          throw new Error('Unauthorize');
         }
         const token = jwt.sign({ username: foundUser.username},
             'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }

@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import DataContext from "../../contexts/data.context";
-import {userService} from "../../services";
+import {authService, userService} from "../../services";
 import {UserRoleBadge, UserStatusBadge} from "./badges";
 import {UserRole, UserStatus} from "../../models/user.model";
+import Swal from 'sweetalert2'
 
 function UserRow(props) {
   const [isEditing, setEditing] = useState(false);
@@ -44,8 +45,20 @@ function UserRow(props) {
         }
 
         <button type="button" className="btn btn-white text-danger" onClick={ async () => {
-          await userService.deleteUserByUsername(user.username);
-          await getUserFromDb();
+          Swal.fire({
+            title: `Do you want delete ${user.username}`,
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: `No`,
+          }).then(async (result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              await userService.deleteUserByUsername(user.username);
+              await getUserFromDb();
+              Swal.fire('Deleted', '', 'success')
+            } else if (result.isDenied) {
+            }
+          })
         }}>
           <i className="ri-delete-bin-6-line h5"></i>
         </button>
